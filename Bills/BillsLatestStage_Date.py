@@ -110,11 +110,13 @@ for n in range(0, total_results, 20):
         final_500.append(errors_500)
     if errors_400 != 0:
         final_400.append(errors_400)
+    if pd.json_normalize(bills, record_path =['items']) is None:
+        final_nobill.append(n)
 
 #Concatenate all the lists into one dataframe
 final_df = pd.concat(final, ignore_index=True)
-final_df.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage.csv", index=False)
-# final_df.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage.csv", index=False)
+final_df.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_Date/BillsLatestStage_Date.csv", index=False)
+# final_df.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_Date.csv", index=False)
 
 #Transfrom the error lists into dataframes
 final_df_404 = pd.DataFrame(final_404)
@@ -133,13 +135,13 @@ if len(final_df_nobill) != 0:
     final_df_nobill.columns = ["SKIP"]
 
 #Store the 2 error lists in a csv file
-final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage404.csv", index=False)
-final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage500.csv", index=False)
-final_df_400.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage400.csv", index=False)
-final_df_nobill.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStageNoBill.csv", index=False)
-# final_df_404.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage404.csv", index=False)
-# final_df_500.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage500.csv", index=False)
-# final_df_400.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage400.csv", index=False)
-# final_df_nobill.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStageNoBill.csv", index=False)
+final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_Date/BillsLatestStage_Date404.csv", index=False)
+final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_Date/BillsLatestStage_Date500.csv", index=False)
+final_df_400.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_Date/BillsLatestStage_Date400.csv", index=False)
+final_df_nobill.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_Date/BillsLatestStage_DateNoBill.csv", index=False)
+# final_df_404.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_Date404.csv", index=False)
+# final_df_500.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_Date500.csv", index=False)
+# final_df_400.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_Date400.csv", index=False)
+# final_df_nobill.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_DateNoBill.csv", index=False)
 
 

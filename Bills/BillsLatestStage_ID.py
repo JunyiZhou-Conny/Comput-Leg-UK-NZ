@@ -38,7 +38,7 @@ def get(BillID):
     results = []
 
 
-    url = f"https://bills-api.parliament.uk/api/v1/Bills/{BillID}/Stages"
+    url = f"https://bills-api.parliament.uk/api/v1/Bills/{BillID}"
     response = requests.get(url)
 
     #Currently, the success code is 200 from "https://bills-api.parliament.uk/index.html"
@@ -95,34 +95,58 @@ response = requests.get(url)
 total_results = response.json()['totalResults']
 
 iter = 0
-n = 0
+n = 1
 while iter < total_results:
     bills, errors_404, errors_500, errors_400 = get(BillID = n)
-    
-    if bills is not None:
-        df_all = pd.json_normalize(bills,
-                                   record_path =['items'])
+    if errors_404 != 0:
+        final_404.append(errors_404)
+    elif errors_500 != 0:
+        final_500.append(errors_500)
+    elif errors_400 != 0:
+            final_400.append(errors_400)
+    elif pd.json_normalize(bills) is None:
+            final_nobill.append(n)
+    elif bills is not None:
+        #Extract the member ID from the sponsors list
+        sponsors_dict = pd.json_normalize(bills,
+                                   record_path=['sponsors'],
+                                   meta=['billId'])[['member.memberId','billId']]
+        almost_all = pd.json_normalize(bills)[['longTitle', 
+                                         'summary', 
+                                         'petitioningPeriod',
+                                         'petitionInformation',
+                                         'agent',
+                                         'shortTitle',
+                                         'currentHouse',
+                                         'originatingHouse',
+                                         'lastUpdate',
+                                         'billWithdrawn',
+                                         'isDefeated',
+                                         'billTypeId',
+                                            'introducedSessionId',
+                                            'includedSessionIds',
+                                            'isAct',
+                                            'currentStage.id',
+                                            'currentStage.sessionId',
+                                            'currentStage.description',
+                                            'currentStage.abbreviation',
+                                            'currentStage.house',
+                                            'currentStage.stageSittings',
+                                            'currentStage.sortOrder']]
+        df_all = pd.concat([sponsors_dict, almost_all], axis=1)                          
         #Add the BillID column to the very left of the dataframe
-        df_all.insert(0, 'BillID', n)
         final.append(df_all)
         iter += 1
     #Write a if statement to check if bills is a list with an empty list inside
-    if pd.json_normalize(bills, record_path =['items']) is None:
-        final_nobill.append(n)
-    if errors_404 != 0:
-        final_404.append(errors_404)
-    if errors_500 != 0:
-        final_500.append(errors_500)
-    if errors_400 != 0:
-        final_400.append(errors_400)
+    
     n += 1
 print(n)
 
 
 #Concatenate all the lists into one dataframe
 final_df = pd.concat(final, ignore_index=True)
-final_df.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages/BillsAllStages.csv", index=False)
-# final_df.to_csv(f"/Users/conny/Desktop/Trial/BillsAllStages.csv", index=False)
+final_df.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages_ID/BillsLatestStage_ID.csv", index=False)
+# final_df.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_ID.csv", index=False)
 
 #Transfrom the error lists into dataframes
 final_df_404 = pd.DataFrame(final_404)
@@ -141,13 +165,13 @@ if len(final_df_nobill) != 0:
     final_df_nobill.columns = ["SKIP"]
 
 #Store the 2 error lists in a csv file
-final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages/BillsAllStages404.csv", index=False)
-final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages/BillsAllStages500.csv", index=False)
-final_df_400.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages/BillsAllStages400.csv", index=False)
-final_df_nobill.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages/BillsAllStagesNoBill.csv", index=False)
-# final_df_404.to_csv(f"/Users/conny/Desktop/Trial/BillsAllStages404.csv", index=False)
-# final_df_500.to_csv(f"/Users/conny/Desktop/Trial/BillsAllStages500.csv", index=False)
-# final_df_400.to_csv(f"/Users/conny/Desktop/Trial/BillsAllStages400.csv", index=False)
-# final_df_nobill.to_csv(f"/Users/conny/Desktop/Trial/BillsAllStagesNoBill.csv", index=False)
+final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_ID/BillsLatestStage_ID404.csv", index=False)
+final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_ID/BillsLatestStage_ID500.csv", index=False)
+final_df_400.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_ID/BillsLatestStage_ID400.csv", index=False)
+final_df_nobill.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_ID/BillsLatestStage_IDNoBill.csv", index=False)
+# final_df_404.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_ID404.csv", index=False)
+# final_df_500.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_ID500.csv", index=False)
+# final_df_400.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_ID400.csv", index=False)
+# final_df_nobill.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_IDNoBill.csv", index=False)
 
 
