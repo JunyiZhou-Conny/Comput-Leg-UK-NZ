@@ -1,0 +1,48 @@
+{
+  "items": [
+    {
+      "id": 9,
+      "category": "Public",
+      "name": "Draft Bill",
+      "description": "A Draft Bill is published to enable consultation and pre-legislative scrutiny. After consultation and pre-legislative scrutiny has taken place, the Draft Bill may be introduced formally in the House of Commons or the House of Lords.<div><a href='https://www.parliament.uk/business/bills-and-legislation/draft-bills/'>Find out more about Draft Bills</a></div>"
+    },
+    {
+      "id": 1,
+      "category": "Public",
+      "name": "Government Bill",
+      "description": "<p>Government Bills are a type of Public Bill, introduced by government ministers. A Government Bill is a formal proposal for a new law, or a change in the law, that is put forward by the Government for consideration by Parliament. The King's Speech normally lists the Bills that the Government are intending to put forward during the parliamentary year. Government Bills are normally Public Bills.</p><p><a href=\"https://erskinemay.parliament.uk/section/4972/government-and-private-members-bills/\" rel=\"noopener noreferrer\" target=\"_blank\">Find out more about Government Bills</a></p><p><a href=\"https://www.parliament.uk/about/how/laws/bills/public/\" rel=\"noopener noreferrer\" target=\"_blank\">Find out more about Public Bills</a></p>"
+    },
+    {
+      "id": 5,
+      "category": "Public",
+      "name": "Private Members' Bill (under the Ten Minute Rule)",
+      "description": "Ten Minute Rule Bills are a type of Private Members' Bill. Ten Minute Rule bills are often an opportunity for Members to voice an opinion on a subject or aspect of existing legislation, rather than a serious attempt to get a bill passed. Members make speeches of no more than ten minutes outlining their position, which another Member may oppose in a similar short statement.<div><a href='https://www.parliament.uk/about/how/laws/bills/private-members/'>Find out more about Private Members' Bills</a></div>"
+    },
+    {
+      "id": 7,
+      "category": "Public",
+      "name": "Private Members' Bill (Ballot Bill)",
+      "description": "Ballot Bills are a type of Private Members' Bill. Ballot bills have the best chance of becoming law, as they get priority for the limited amount of debating time available. The names of Members applying for a bill are drawn in a ballot held on the second sitting Thursday of a parliamentary session.<div><a href='https://www.parliament.uk/about/how/laws/bills/private-members/'>Find out more about Private Members' Bills</a></div>"
+    },
+    {
+      "id": 8,
+      "category": "Public",
+      "name": "Private Members' Bill (Presentation Bill)",
+      "description": "Presentation Bills are a type of Private Members' Bill. Any Member may introduce a bill in this way as long as he or she has previously given notice of their intention to do so. Members formally introduce the title of the bill but do not speak in support of it - they rarely become law.<div><a href='https://www.parliament.uk/about/how/laws/bills/private-members/'>Find out more about Private Members' Bills</a></div>"
+    },
+    {
+      "id": 2,
+      "category": "Public",
+      "name": "Private Members' Bill (Starting in the House of Lords)",
+      "description": "Private Members' bills in the Lords are usually introduced through a ballot held on the day after State Opening of a new session of a parliament. In order to enter the ballot, Peers must submit a draft of their bill (including its short and long title, and all clauses and schedules) to the Legislation Office.<div><a href='https://www.parliament.uk/about/how/laws/bills/private-members/'>Find out more about Private Members' Bills in the Lords</a></div>"
+    },
+    {
+      "id": 3,
+      "category": "Public",
+      "name": "Consolidation Bill",
+      "description": "Consolidation Bills are a type of Private Members' Bill. Consolidation bills re-enact a body of existing law in a single statute and an improved form without substantive change. They are invariably introduced in the House of Lords.<div><a href='https://erskinemay.parliament.uk/section/5507/consolidation-bills/'>Find out more about Consolidation Bills</a></div><div><a href='https://www.parliament.uk/about/how/laws/bills/public/'>Find out more about Public Bills</a></div>"
+    }
+  ],
+  "totalResults": 7,
+  "itemsPerPage": 20
+}
