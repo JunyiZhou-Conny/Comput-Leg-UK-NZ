@@ -1,9 +1,9 @@
-# Chest X-Ray Classification Machine Learning Project
+# UK Parliament Data Cleaning
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#overview-of-the-project">Overview of the Project</a></li>
+    <li><a href="#bills">Bills</a></li>
     <li><a href="#description-of-the-raw-dataset">Description of the Raw Dataset</a></li>
     <li><a href="#data-preprocessing">Data Preprocessing</a></li>
     <li><a href="#description-of-the-processed-dataset">Description of the Processed Dataset</a></li>
