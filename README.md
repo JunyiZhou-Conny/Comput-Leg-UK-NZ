@@ -3,6 +3,7 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
+    <li><a href="#ec2-setup">EC2 Setup</a></li>
     <li><a href="#bills">Bills</a></li>
     <ul>
         <li><a href="#billsallstages">BillsAllStages</a></li>
@@ -22,15 +23,71 @@
 </details>
 
 ## Overview of the Project
-The goal of this project is to build a machine learning model that can classify chest X-ray images into normal and pneumonia. The dataset is from Kaggle and can be found [here](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia). 
+## EC2 Setup
+This guide outlines the steps to set up JupyterLab on an AWS EC2 instance, configure the security group, and access JupyterLab remotely.
 
-The minor distinction between healthy and bacterial pneumonia chest X-rays presents considerable challenges for image classification, offering substantial scope for the application and evaluation of various machine learning models.
+### Step 1: Configure the Security Group
 
-We consider the following models:
-- K-Nearest Neighbors
-- Principal Component Analysis with Logistic Regression
-- Random Forest
-- Convolutional Neural Network
+- **Login to AWS Management Console.**
+- **Navigate to EC2 dashboard.**
+- **Select your EC2 instance's security group.**
+- **Edit inbound rules:**
+  - Add SSH rule: 
+    - Type: SSH
+    - Port Range: 22
+    - Source: Your IP or Anywhere
+  - Add JupyterLab rule: 
+    - Type: Custom TCP
+    - Port Range: 8888
+    - Source: Your IP or Anywhere
+
+### Step 2: Connect to the EC2 Instance via SSH
+
+Use the following command to SSH into your instance:
+
+```bash
+ssh -i /path/to/your-key.pem ec2-user@your-instance-public-dns
+```
+
+### Step 3: Install JupyterLab in a Virtual Environment
+```bash
+sudo yum update -y
+sudo yum install python3-pip python3-dev -y
+python3 -m venv myenv
+source myenv/bin/activate
+pip install jupyterlab
+```
+
+### Step 4: Start JupyterLab Manually
+```bash
+jupyter lab --ip=0.0.0.0 --port=8888 --no-browser
+```
+
+### Step 5: Set Up JupyterLab as a Systemed Service
+```ini
+[Unit]
+Description=Jupyter Lab
+
+[Service]
+Type=simple
+PIDFile=/run/jupyter.pid
+ExecStart=/bin/bash -c 'source /home/ec2-user/myenv/bin/activate && exec /home/ec2-user/myenv/bin/jupyter lab --ip=0.0.0.0 --port=8888 --no-browser'
+User=ec2-user
+Group=ec2-user
+WorkingDirectory=/home/ec2-user/
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### Enable and Start the Service
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable jupyter
+sudo systemctl start jupyter
+```
 
 ## Bills
 ### BillsAllStages
@@ -86,7 +143,7 @@ if pd.json_normalize(bills, record_path =['items']) is None:
 ```
 
 ### BillsLatestStage_Date
-BillsLatestStage is gathered using the date parameter. It retrieves back all the bills that have been updated since the date specified. The date is set to be 2050-01-01. The issue is that the API that allows us to retrieve data with date as the input parameter contains limited information regarding the bills.
+BillsLatestStage is gathered using the date parameter. It retrieves back all the bills that have been updated since the date specified. The date is set to be 2050-01-01. The issue is that the API contains limited information.
 
 So, I am thinking about repeating the whole process using the method specified in BillsAllStages. The only difference is that we are going to use the date parameter instead of the BillID parameter.
 
