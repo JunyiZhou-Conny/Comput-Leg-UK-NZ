@@ -9,6 +9,7 @@ import json
 import math
 import sys
 import pandas as pd
+import io
 
 
 def get(BillID):
@@ -88,6 +89,7 @@ final_nobill = []
 final_404 = []
 final_500 = []
 final_400 = []
+final_nomemId = []
 
 #Get the total number of results from a different source
 url = f'https://bills-api.parliament.uk/api/v1/Bills?CurrentHouse=All&OriginatingHouse=All'
@@ -107,32 +109,38 @@ while iter < total_results:
     elif pd.json_normalize(bills) is None:
             final_nobill.append(n)
     elif bills is not None:
-        #Extract the member ID from the sponsors list
-        sponsors_dict = pd.json_normalize(bills,
-                                   record_path=['sponsors'],
-                                   meta=['billId'])[['member.memberId','billId']]
-        almost_all = pd.json_normalize(bills)[['longTitle', 
-                                         'summary', 
-                                         'petitioningPeriod',
-                                         'petitionInformation',
-                                         'agent',
-                                         'shortTitle',
-                                         'currentHouse',
-                                         'originatingHouse',
-                                         'lastUpdate',
-                                         'billWithdrawn',
-                                         'isDefeated',
-                                         'billTypeId',
-                                            'introducedSessionId',
-                                            'includedSessionIds',
-                                            'isAct',
-                                            'currentStage.id',
-                                            'currentStage.sessionId',
-                                            'currentStage.description',
-                                            'currentStage.abbreviation',
-                                            'currentStage.house',
-                                            'currentStage.stageSittings',
-                                            'currentStage.sortOrder']]
+        try:
+        # Try normalizing with member.memberId
+            sponsors_dict = pd.json_normalize(bills,
+                                          record_path=['sponsors'],
+                                          meta=['billId'],
+                                          errors='raise')[['member.memberId', 'billId']]
+        except KeyError as e:
+            print(f"KeyError occurred for BillId {n}: {e}")
+            final_nomemId.append(n)
+            # If KeyError, normalize without member.memberId
+            sponsors_dict = pd.json_normalize(bills,
+                                          record_path=['sponsors'],
+                                          meta=['billId'],
+                                          errors='ignore')
+        # Add the member.memberId column with NaN values
+        sponsors_dict['member.memberId'] = pd.NA
+        
+        df = pd.json_normalize(bills)
+        # List of desired columns
+        desired_columns = [
+        'longTitle', 'summary', 'petitioningPeriod', 'petitionInformation', 'agent',
+        'shortTitle', 'currentHouse', 'originatingHouse', 'lastUpdate',
+        'billWithdrawn', 'isDefeated', 'billTypeId', 'introducedSessionId',
+        'includedSessionIds', 'isAct', 'currentStage.id', 'currentStage.sessionId',
+        'currentStage.description', 'currentStage.abbreviation',
+        'currentStage.house', 'currentStage.stageSittings', 'currentStage.sortOrder']
+                                                                        
+        # Filter out the columns that don't exist in df
+        existing_columns = [col for col in desired_columns if col in df.columns]
+
+        almost_all = df[existing_columns]
+
         df_all = pd.concat([sponsors_dict, almost_all], axis=1)                          
         #Add the BillID column to the very left of the dataframe
         final.append(df_all)
@@ -145,33 +153,27 @@ print(n)
 
 #Concatenate all the lists into one dataframe
 final_df = pd.concat(final, ignore_index=True)
-final_df.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages_ID/BillsLatestStage_ID.csv", index=False)
-# final_df.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_ID.csv", index=False)
+
 
 #Transfrom the error lists into dataframes
 final_df_404 = pd.DataFrame(final_404)
 final_df_500 = pd.DataFrame(final_500)
 final_df_400 = pd.DataFrame(final_400)
 final_df_nobill = pd.DataFrame(final_nobill)
+final_nomemId = pd.DataFrame(final_nomemId)
 
 #Make the column name of the error lists as "ID"
 if len(final_df_404) != 0:
-    final_df_404.columns = ["SKIP"]
+    final_df_404.columns = ["ID"]
 if len(final_df_500) != 0:
-    final_df_500.columns = ["SKIP"]
+    final_df_500.columns = ["ID"]
 if len(final_df_400) != 0:
-    final_df_400.columns = ["SKIP"]
+    final_df_400.columns = ["ID"]
 if len(final_df_nobill) != 0:
-    final_df_nobill.columns = ["SKIP"]
+    final_df_nobill.columns = ["ID"]
+if len(final_nomemId) != 0:
+    final_nomemId.columns = ["ID"]
 
-#Store the 2 error lists in a csv file
-final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_ID/BillsLatestStage_ID404.csv", index=False)
-final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_ID/BillsLatestStage_ID500.csv", index=False)
-final_df_400.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_ID/BillsLatestStage_ID400.csv", index=False)
-final_df_nobill.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsLatestStage_ID/BillsLatestStage_IDNoBill.csv", index=False)
-# final_df_404.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_ID404.csv", index=False)
-# final_df_500.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_ID500.csv", index=False)
-# final_df_400.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_ID400.csv", index=False)
-# final_df_nobill.to_csv(f"/Users/conny/Desktop/Trial/BillsLatestStage_IDNoBill.csv", index=False)
+
 
 

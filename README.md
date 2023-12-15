@@ -161,6 +161,8 @@ Notice that sponsors_dict capture the memberId. We do not need the rest of the i
 Also, be aware that we need to change the logic of the elif statement to make sure that it will skip the json_normalize function if the json file is 404.
 
 Another interesting thing(not sure why I said interesting), start the BillID from 1 instead of 0, otherwise the screen will shiver to tell you that the API is not working.
+
+There are a lot of edge cases. The memberId may not exist fro every bill. So we need to use try and except to catch the error. Also there are missing columns, so we set up a desired column list to select the actual columns we have from.
 ```python
 iter = 0
 n = 1
@@ -175,32 +177,38 @@ while iter < total_results:
     elif pd.json_normalize(bills) is None:
             final_nobill.append(n)
     elif bills is not None:
-        #Extract the member ID from the sponsors list
-        sponsors_dict = pd.json_normalize(bills,
-                                   record_path=['sponsors'],
-                                   meta=['billId'])[['member.memberId','billId']]
-        almost_all = pd.json_normalize(bills)[['longTitle', 
-                                         'summary', 
-                                         'petitioningPeriod',
-                                         'petitionInformation',
-                                         'agent',
-                                         'shortTitle',
-                                         'currentHouse',
-                                         'originatingHouse',
-                                         'lastUpdate',
-                                         'billWithdrawn',
-                                         'isDefeated',
-                                         'billTypeId',
-                                            'introducedSessionId',
-                                            'includedSessionIds',
-                                            'isAct',
-                                            'currentStage.id',
-                                            'currentStage.sessionId',
-                                            'currentStage.description',
-                                            'currentStage.abbreviation',
-                                            'currentStage.house',
-                                            'currentStage.stageSittings',
-                                            'currentStage.sortOrder']]
+        try:
+        # Try normalizing with member.memberId
+            sponsors_dict = pd.json_normalize(bills,
+                                          record_path=['sponsors'],
+                                          meta=['billId'],
+                                          errors='raise')[['member.memberId', 'billId']]
+        except KeyError as e:
+            print(f"KeyError occurred for BillId {n}: {e}")
+            final_nomemId.append(n)
+            # If KeyError, normalize without member.memberId
+            sponsors_dict = pd.json_normalize(bills,
+                                          record_path=['sponsors'],
+                                          meta=['billId'],
+                                          errors='ignore')
+        # Add the member.memberId column with NaN values
+        sponsors_dict['member.memberId'] = pd.NA
+        
+        df = pd.json_normalize(bills)
+        # List of desired columns
+        desired_columns = [
+        'longTitle', 'summary', 'petitioningPeriod', 'petitionInformation', 'agent',
+        'shortTitle', 'currentHouse', 'originatingHouse', 'lastUpdate',
+        'billWithdrawn', 'isDefeated', 'billTypeId', 'introducedSessionId',
+        'includedSessionIds', 'isAct', 'currentStage.id', 'currentStage.sessionId',
+        'currentStage.description', 'currentStage.abbreviation',
+        'currentStage.house', 'currentStage.stageSittings', 'currentStage.sortOrder']
+                                                                        
+        # Filter out the columns that don't exist in df
+        existing_columns = [col for col in desired_columns if col in df.columns]
+
+        almost_all = df[existing_columns]
+
         df_all = pd.concat([sponsors_dict, almost_all], axis=1)                          
         #Add the BillID column to the very left of the dataframe
         final.append(df_all)
