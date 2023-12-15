@@ -64,6 +64,12 @@ jupyter lab --ip=0.0.0.0 --port=8888 --no-browser
 ```
 
 ### Step 5: Set Up JupyterLab as a Systemed Service
+Create a systemd service file for JupyterLab:
+```bash
+sudo nano /etc/systemd/system/jupyter.service
+```
+
+Write the following into the file:
 ```ini
 [Unit]
 Description=Jupyter Lab
