@@ -4,6 +4,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#ec2-setup">EC2 Setup</a></li>
+    <li><a href="#s3-bucket-upload">S3 Bucket Upload</a></li>
     <li><a href="#bills">Bills</a></li>
     <ul>
         <li><a href="#billsallstages">BillsAllStages</a></li>
@@ -94,6 +95,36 @@ sudo systemctl daemon-reload
 sudo systemctl enable jupyter
 sudo systemctl start jupyter
 ```
+##S3 Bucket Upload
+```python
+import boto3
+import io
+
+def upload_df_to_s3(df, bucket, object_name):
+    """
+    Upload a DataFrame to an S3 bucket as CSV.
+
+    :param df: DataFrame to upload
+    :param bucket: Bucket to upload to
+    :param object_name: S3 object name
+    :return: True if the DataFrame was uploaded, else False
+    """
+    # Create a buffer
+    csv_buffer = io.StringIO()
+    df.to_csv(csv_buffer, index=False)
+
+    # Move to the start of the buffer
+    csv_buffer.seek(0)
+
+    # Upload the buffer content to S3
+    s3_client = boto3.client('s3')
+    try:
+        s3_client.put_object(Bucket=bucket, Key=object_name, Body=csv_buffer.getvalue())
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return True
+```
 
 ## Bills
 ### BillsAllStages
@@ -162,7 +193,7 @@ Also, be aware that we need to change the logic of the elif statement to make su
 
 Another interesting thing(not sure why I said interesting), start the BillID from 1 instead of 0, otherwise the screen will shiver to tell you that the API is not working.
 
-There are a lot of edge cases. The memberId may not exist fro every bill. So we need to use try and except to catch the error. Also there are missing columns, so we set up a desired column list to select the actual columns we have from.
+There are a lot of edge cases. The memberId may not exist for every bill. So we need to use try and except to catch the error. Also there are missing columns, so we set up a desired column list to select the actual columns we have from.
 ```python
 iter = 0
 n = 1
@@ -191,8 +222,8 @@ while iter < total_results:
                                           record_path=['sponsors'],
                                           meta=['billId'],
                                           errors='ignore')
-        # Add the member.memberId column with NaN values
-        sponsors_dict['member.memberId'] = pd.NA
+            # Add the member.memberId column with NaN values
+            sponsors_dict['member.memberId'] = pd.NA
         
         df = pd.json_normalize(bills)
         # List of desired columns

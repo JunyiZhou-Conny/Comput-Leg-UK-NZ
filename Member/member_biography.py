@@ -1,7 +1,7 @@
 '''
 Author: Conny Zhou
 Email: junyi.zhou@emory.edu
-Last Updated: 11/20/2023
+Last Updated: 12/15/2023
 '''
 import requests
 import time
@@ -205,41 +205,6 @@ for ID in range(MEM_ID_START, MEM_ID_END + 1):
     if errors_500 != 0:
         final_500.append(errors_500)
 
-
-#Save the data into QTM clustering
-final_representations.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Representations/Member_Representations.csv", index=False)
-final_electionsContested.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_ElectionsContested/Member_ElectionsContested.csv", index=False)
-final_houseMemberships.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_HouseMemberships/Member_HouseMemberships.csv", index=False)
-final_governmentPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_GovernmentPosts/Member_GovernmentPosts.csv", index=False)
-final_oppositionPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_OppositionPosts/Member_OppositionPosts.csv", index=False)
-final_otherPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_OtherPosts/Member_OtherPosts.csv", index=False)
-final_partyAffiliations.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_PartyAffiliations/Member_PartyAffiliations.csv", index=False)
-final_committeeMemberships.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_CommitteeMemberships/Member_CommitteeMemberships.csv", index=False)
-
-#Test on my computer
-# final_representations.to_csv(f"/Users/conny/Desktop/Member_Representations.csv", index=False)
-# final_electionsContested.to_csv(f"/Users/conny/Desktop/Member_ElectionsContested.csv", index=False)
-# final_houseMemberships.to_csv(f"/Users/conny/Desktop/Member_HouseMemberships.csv", index=False)
-# final_governmentPosts.to_csv(f"/Users/conny/Desktop/Member_GovernmentPosts.csv", index=False)
-# final_oppositionPosts.to_csv(f"/Users/conny/Desktop/Member_OppositionPosts.csv", index=False)
-# final_otherPosts.to_csv(f"/Users/conny/Desktop/Member_OtherPosts.csv", index=False)
-# final_partyAffiliations.to_csv(f"/Users/conny/Desktop/Member_PartyAffiliations.csv", index=False)
-# final_committeeMemberships.to_csv(f"/Users/conny/Desktop/Member_CommitteeMemberships.csv", index=False)
-
-
-
-
-
-
-
-'''
-'''
-
-
-
-
-
-
 #Concatenate the error list into a dataframe
 final_norepresentations = pd.DataFrame(final_norepresentations)
 final_noelectionsContested = pd.DataFrame(final_noelectionsContested)
@@ -269,35 +234,6 @@ if len(final_nocommitteeMemberships) != 0:
     final_nocommitteeMemberships.columns = ['memberID']
 
 
-#Store the empty lists in a csv file
-final_norepresentations.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Representations/Member_RepresentationsEmpty.csv", index=False)
-final_noelectionsContested.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_ElectionsContested/Member_ElectionsContestedEmpty.csv", index=False)
-final_nohouseMemberships.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_HouseMemberships/Member_HouseMembershipsEmpty.csv", index=False)
-final_nogovernmentPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_GovernmentPosts/Member_GovernmentPostsEmpty.csv", index=False)
-final_nooppositionPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_OppositionPosts/Member_OppositionPostsEmpty.csv", index=False)
-final_nootherPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_OtherPosts/Member_OtherPostsEmpty.csv", index=False)
-final_nopartyAffiliations.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_PartyAffiliations/Member_PartyAffiliationsEmpty.csv", index=False)
-final_nocommitteeMemberships.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_CommitteeMemberships/Member_CommitteeMembershipsEmpty.csv", index=False)
-
-#Test on my computer
-# final_norepresentations.to_csv(f"/Users/conny/Desktop/Member_RepresentationError.csv", index=False)
-# final_noelectionsContested.to_csv(f"/Users/conny/Desktop/Member_ElectionsContestedError.csv", index=False)
-# final_nohouseMemberships.to_csv(f"/Users/conny/Desktop/Member_HouseMembershipsError.csv", index=False)
-# final_nogovernmentPosts.to_csv(f"/Users/conny/Desktop/Member_GovernmentPostsError.csv", index=False)
-# final_nooppositionPosts.to_csv(f"/Users/conny/Desktop/Member_OppositionPostsError.csv", index=False)
-# final_nootherPosts.to_csv(f"/Users/conny/Desktop/Member_OtherPostsError.csv", index=False)
-# final_nopartyAffiliations.to_csv(f"/Users/conny/Desktop/Member_PartyAffiliationsError.csv", index=False)
-# final_nocommitteeMemberships.to_csv(f"/Users/conny/Desktop/Member_CommitteeMembershipsError.csv", index=False)
-
-
-
-'''
-'''
-
-
-
-
-
 #Transfrom the error lists into dataframes
 final_bio_404 = pd.DataFrame(final_404)
 final_bio_500 = pd.DataFrame(final_500)
@@ -310,14 +246,131 @@ if len(final_bio_500) != 0:
     final_bio_500.columns = ["memberID"]
 
 
-#Store the 2 error lists in a csv file
-# final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Bio404.csv", index=False)
-# final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Bio500.csv", index=False)
-# final_nobio.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_NoBio.csv", index=False)
 
+final_404 = []
+final_500 = []
+
+import boto3
+import io
+
+def upload_df_to_s3(df, bucket, object_name):
+    """
+    Upload a DataFrame to an S3 bucket as CSV.
+
+    :param df: DataFrame to upload
+    :param bucket: Bucket to upload to
+    :param object_name: S3 object name
+    :return: True if the DataFrame was uploaded, else False
+    """
+    # Create a buffer
+    csv_buffer = io.StringIO()
+    df.to_csv(csv_buffer, index=False)
+
+    # Move to the start of the buffer
+    csv_buffer.seek(0)
+
+    # Upload the buffer content to S3
+    s3_client = boto3.client('s3')
+    try:
+        s3_client.put_object(Bucket=bucket, Key=object_name, Body=csv_buffer.getvalue())
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return True
+
+
+
+bucket_name = 'myukdata'
+folder_path = 'Member'
+file_names = ['Member_Representations.csv','Member_ElectionsContested.csv','Member_HouseMemberships.csv', 
+              'Member_GovernmentPosts.csv', 'Member_OppositionPosts.csv','Member_OtherPosts.csv','Member_PartyAffiliations.csv','Member_CommitteeMemberships.csv']  # Replace with your desired S3 object names
+# Create full object names with folder path
+object_names = [f"{folder_path}/{file_name}" for file_name in file_names]
+
+# Example DataFrames
+dfs = [final_representations, final_electionsContested, final_houseMemberships, final_governmentPosts, final_oppositionPosts,
+       final_otherPosts,final_partyAffiliations,final_committeeMemberships]  # Replace with your actual DataFrames
+
+
+# Loop over DataFrames and upload each
+for df, object_name in zip(dfs, object_names):
+    upload_success = upload_df_to_s3(df, bucket_name, object_name)
+    if upload_success:
+        print(f"Uploaded {object_name} to {bucket_name}")
+    else:
+        print(f"Failed to upload {object_name}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# #Save the data into QTM clustering
+# final_representations.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Representations/Member_Representations.csv", index=False)
+# final_electionsContested.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_ElectionsContested/Member_ElectionsContested.csv", index=False)
+# final_houseMemberships.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_HouseMemberships/Member_HouseMemberships.csv", index=False)
+# final_governmentPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_GovernmentPosts/Member_GovernmentPosts.csv", index=False)
+# final_oppositionPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_OppositionPosts/Member_OppositionPosts.csv", index=False)
+# final_otherPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_OtherPosts/Member_OtherPosts.csv", index=False)
+# final_partyAffiliations.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_PartyAffiliations/Member_PartyAffiliations.csv", index=False)
+# final_committeeMemberships.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_CommitteeMemberships/Member_CommitteeMemberships.csv", index=False)
 
 #Test on my computer
-final_bio_404.to_csv(f"/Users/conny/Desktop/Member_Bio404.csv", index=False)
-final_bio_500.to_csv(f"/Users/conny/Desktop/Member_Bio500.csv", index=False)
+# final_representations.to_csv(f"/Users/conny/Desktop/Member_Representations.csv", index=False)
+# final_electionsContested.to_csv(f"/Users/conny/Desktop/Member_ElectionsContested.csv", index=False)
+# final_houseMemberships.to_csv(f"/Users/conny/Desktop/Member_HouseMemberships.csv", index=False)
+# final_governmentPosts.to_csv(f"/Users/conny/Desktop/Member_GovernmentPosts.csv", index=False)
+# final_oppositionPosts.to_csv(f"/Users/conny/Desktop/Member_OppositionPosts.csv", index=False)
+# final_otherPosts.to_csv(f"/Users/conny/Desktop/Member_OtherPosts.csv", index=False)
+# final_partyAffiliations.to_csv(f"/Users/conny/Desktop/Member_PartyAffiliations.csv", index=False)
+# final_committeeMemberships.to_csv(f"/Users/conny/Desktop/Member_CommitteeMemberships.csv", index=False)
 
 
+# #Store the 2 error lists in a csv file
+# # final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Bio404.csv", index=False)
+# # final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Bio500.csv", index=False)
+# # final_nobio.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_NoBio.csv", index=False)
+
+
+# #Test on my computer
+# final_bio_404.to_csv(f"/Users/conny/Desktop/Member_Bio404.csv", index=False)
+# final_bio_500.to_csv(f"/Users/conny/Desktop/Member_Bio500.csv", index=False)
+
+
+# #Store the empty lists in a csv file
+# final_norepresentations.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Representations/Member_RepresentationsEmpty.csv", index=False)
+# final_noelectionsContested.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_ElectionsContested/Member_ElectionsContestedEmpty.csv", index=False)
+# final_nohouseMemberships.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_HouseMemberships/Member_HouseMembershipsEmpty.csv", index=False)
+# final_nogovernmentPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_GovernmentPosts/Member_GovernmentPostsEmpty.csv", index=False)
+# final_nooppositionPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_OppositionPosts/Member_OppositionPostsEmpty.csv", index=False)
+# final_nootherPosts.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_OtherPosts/Member_OtherPostsEmpty.csv", index=False)
+# final_nopartyAffiliations.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_PartyAffiliations/Member_PartyAffiliationsEmpty.csv", index=False)
+# final_nocommitteeMemberships.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_CommitteeMemberships/Member_CommitteeMembershipsEmpty.csv", index=False)
+
+# #Test on my computer
+# # final_norepresentations.to_csv(f"/Users/conny/Desktop/Member_RepresentationError.csv", index=False)
+# # final_noelectionsContested.to_csv(f"/Users/conny/Desktop/Member_ElectionsContestedError.csv", index=False)
+# # final_nohouseMemberships.to_csv(f"/Users/conny/Desktop/Member_HouseMembershipsError.csv", index=False)
+# # final_nogovernmentPosts.to_csv(f"/Users/conny/Desktop/Member_GovernmentPostsError.csv", index=False)
+# # final_nooppositionPosts.to_csv(f"/Users/conny/Desktop/Member_OppositionPostsError.csv", index=False)
+# # final_nootherPosts.to_csv(f"/Users/conny/Desktop/Member_OtherPostsError.csv", index=False)
+# # final_nopartyAffiliations.to_csv(f"/Users/conny/Desktop/Member_PartyAffiliationsError.csv", index=False)
+# # final_nocommitteeMemberships.to_csv(f"/Users/conny/Desktop/Member_CommitteeMembershipsError.csv", index=False)
