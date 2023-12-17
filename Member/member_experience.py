@@ -1,7 +1,7 @@
 '''
 Author: Conny Zhou
 Email: junyi.zhou@emory.edu
-Last Updated: 11/19/2023
+Last Updated: 12/15/2023
 '''
 import requests
 import time
@@ -68,11 +68,11 @@ def get(MEM_ID):
 #API_KEY = get_key(int(sys.argv[2]))
 
 
-PATH = (str(sys.argv[1]))
-MEM_ID_START = int(sys.argv[2])
-MEM_ID_END = int(sys.argv[3])
-# MEM_ID_START = 2000
-# MEM_ID_END =2001
+# PATH = (str(sys.argv[1]))
+# MEM_ID_START = int(sys.argv[2])
+# MEM_ID_END = int(sys.argv[3])
+MEM_ID_START = 1
+MEM_ID_END =5500
 
 
 
@@ -103,8 +103,7 @@ for ID in range(MEM_ID_START, MEM_ID_END + 1):
 
 #Concatenate all the lists into one dataframe
 final_df = pd.concat(final, ignore_index=True)
-final_df.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Experience.csv", index=False)
-#final_df.to_csv(f"/Users/conny/Desktop/Member_Experience.csv", index=False)
+
 
 
 #Transfrom the error lists into dataframes
@@ -120,12 +119,65 @@ if len(final_df_500) != 0:
 if len(final_noexp) != 0:
     final_noexp.columns = ["memberID"]
 
+import boto3
+import io
+
+def upload_df_to_s3(df, bucket, object_name):
+    """
+    Upload a DataFrame to an S3 bucket as CSV.
+
+    :param df: DataFrame to upload
+    :param bucket: Bucket to upload to
+    :param object_name: S3 object name
+    :return: True if the DataFrame was uploaded, else False
+    """
+    # Create a buffer
+    csv_buffer = io.StringIO()
+    df.to_csv(csv_buffer, index=False)
+
+    # Move to the start of the buffer
+    csv_buffer.seek(0)
+
+    # Upload the buffer content to S3
+    s3_client = boto3.client('s3')
+    try:
+        s3_client.put_object(Bucket=bucket, Key=object_name, Body=csv_buffer.getvalue())
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return True
+
+
+
+bucket_name = 'myukdata'
+folder_path = 'Member'
+file_names = ['Member_Experience.csv','Member_Exp404.csv','Member_Exp500.csv','Member_NoExp.csv']  # Replace with your desired S3 object names
+# Create full object names with folder path
+object_names = [f"{folder_path}/{file_name}" for file_name in file_names]
+
+# Example DataFrames
+dfs = [final_df, final_df_404, final_df_500, final_noexp]
+
+
+# Loop over DataFrames and upload each
+for df, object_name in zip(dfs, object_names):
+    upload_success = upload_df_to_s3(df, bucket_name, object_name)
+    if upload_success:
+        print(f"Uploaded {object_name} to {bucket_name}")
+    else:
+        print(f"Failed to upload {object_name}")
+
+
+
+
 
 #Store the 2 error lists in a csv file
-final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Exp404.csv", index=False)
-final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Exp500.csv", index=False)
-final_noexp.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_NoExp.csv", index=False)
-# final_df_404.to_csv(f"/Users/conny/Desktop/Member_Exp404.csv", index=False)
-# final_df_500.to_csv(f"/Users/conny/Desktop/Member_Exp500.csv", index=False)
-# final_noexp.to_csv(f"/Users/conny/Desktop/Member_NoExp.csv", index=False)
+# final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Exp404.csv", index=False)
+# final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Exp500.csv", index=False)
+# final_noexp.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_NoExp.csv", index=False)
+# # final_df_404.to_csv(f"/Users/conny/Desktop/Member_Exp404.csv", index=False)
+# # final_df_500.to_csv(f"/Users/conny/Desktop/Member_Exp500.csv", index=False)
+# # final_noexp.to_csv(f"/Users/conny/Desktop/Member_NoExp.csv", index=False)
 
+# final_df.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Member/Member_Experience.csv", index=False)
+# #final_df.to_csv(f"/Users/conny/Desktop/Member_Experience.csv", index=False)

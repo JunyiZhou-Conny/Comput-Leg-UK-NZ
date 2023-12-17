@@ -95,7 +95,13 @@ sudo systemctl daemon-reload
 sudo systemctl enable jupyter
 sudo systemctl start jupyter
 ```
-##S3 Bucket Upload
+### Use token to access JupyterLab
+```bash
+jupyter server list
+```
+And then use the token to access JupyterLab from your browser.
+
+### S3 Bucket Upload
 ```python
 import boto3
 import io
