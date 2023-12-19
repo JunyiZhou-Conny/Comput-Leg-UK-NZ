@@ -3,6 +3,7 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
+    <li><a href="#overview-of-the-projec">Overview of the Project</a></li>
     <li><a href="#ec2-setup">EC2 Setup</a></li>
     <li><a href="#s3-bucket-upload">S3 Bucket Upload</a></li>
     <li><a href="#bills">Bills</a></li>
