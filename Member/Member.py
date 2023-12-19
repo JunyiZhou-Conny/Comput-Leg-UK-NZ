@@ -1,8 +1,10 @@
 '''
 Author: Conny Zhou
 Email: junyi.zhou@emory.edu
-Last Updated: 12/15/2023
+Last Updated: 12/19/2023
 '''
+import boto3
+from botocore.exceptions import ClientError
 import requests
 import time
 import json
@@ -69,7 +71,7 @@ def get(MEM_ID):
 
 
 MEM_ID_START =  1
-MEM_ID_END = 5500
+MEM_ID_END = 5020
 
 
 

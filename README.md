@@ -24,6 +24,29 @@
 </details>
 
 ## Overview of the Project
+In the UK Parliament, the legislative processes and instruments are somewhat different from those in the US Congress. The primary instruments are "Bills" and various types of "Motions." Unlike the US Congress, the UK Parliament does not use the term "resolution" in the same way, but motions serve a similar purpose. Here's a breakdown:
+
+### Bills in UK Parliament
+Purpose: A Bill is a proposal for new legislation or an amendment to existing legislation. Once a Bill has been debated and, if approved, has passed through all its parliamentary stages in both Houses of Parliament, it is sent to the reigning monarch for Royal Assent. Once Royal Assent is given, a Bill becomes an Act of Parliament and is law.
+
+Types: There are several types of Bills – Public Bills, Private Bills, Hybrid Bills, and Private Members' Bills. Public Bills are the most common and usually involve government policy.
+
+Process: The process includes several stages – First Reading, Second Reading, Committee Stage, Report Stage, Third Reading, followed by the same process in the other House, and finally, Royal Assent.
+
+### Motions in UK Parliament
+Purpose: Motions are formal statements put before a House for debate and possibly a decision. They are the usual method by which Members of Parliament or Lords can formally express their opinions or make decisions.
+
+Types:
+1. Early Day Motions (EDMs): Used in the House of Commons for MPs to draw attention to specific events or campaigns. They are rarely debated.
+2. Substantive Motions: Can be debated and voted on. They often relate to government policy.
+3. Procedural Motions: Relate to the business of the House or its Committees.
+Impact: While motions can express the will of a House, they do not have the same legislative impact as a Bill. They are often used to express opinions or make specific requests of the government but do not create law.
+
+### Key Differences from the US
+The UK system does not use "resolutions" in the same way as the US. Instead, various types of motions are used to express opinions or make procedural decisions.
+The role of the monarchy in the UK legislative process is largely ceremonial today, but Royal Assent is still a formal requirement for a Bill to become law.
+The UK Parliament's legislative process is characterized by its parliamentary sovereignty, meaning it can make or unmake any law, and no other body can overturn its legislation.
+
 ## EC2 Setup
 This guide outlines the steps to set up JupyterLab on an AWS EC2 instance, configure the security group, and access JupyterLab remotely.
 
