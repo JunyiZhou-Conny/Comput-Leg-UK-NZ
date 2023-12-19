@@ -194,15 +194,15 @@ for df, object_name in zip(dfs, object_names):
 
 
 
-#Store the 2 error lists in a csv file
-final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/WrittenQA/WrittenQA404.csv", index=False)
-final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/WrittenQA/WrittenQA500.csv", index=False)
-final_df_400.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/WrittenQA/WrittenQA400.csv", index=False)
-final_noqa.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/WrittenQA/WrittenQA_NoQA.csv", index=False)
-# final_df_404.to_csv(f"/Users/conny/Desktop/Trial/WrittenQA404.csv", index=False)
-# final_df_500.to_csv(f"/Users/conny/Desktop/Trial/WrittenQA500.csv", index=False)
-# final_df_400.to_csv(f"/Users/conny/Desktop/Trial/WrittenQA400.csv", index=False)
-# final_noqa.to_csv(f"/Users/conny/Desktop/Trial/WrittenQA_NoQA.csv", index=False)
+# #Store the 2 error lists in a csv file
+# final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/WrittenQA/WrittenQA404.csv", index=False)
+# final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/WrittenQA/WrittenQA500.csv", index=False)
+# final_df_400.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/WrittenQA/WrittenQA400.csv", index=False)
+# final_noqa.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/WrittenQA/WrittenQA_NoQA.csv", index=False)
+# # final_df_404.to_csv(f"/Users/conny/Desktop/Trial/WrittenQA404.csv", index=False)
+# # final_df_500.to_csv(f"/Users/conny/Desktop/Trial/WrittenQA500.csv", index=False)
+# # final_df_400.to_csv(f"/Users/conny/Desktop/Trial/WrittenQA400.csv", index=False)
+# # final_noqa.to_csv(f"/Users/conny/Desktop/Trial/WrittenQA_NoQA.csv", index=False)
 
-final_df.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/WrittenQA/WrittenQA.csv", index=False)
-# final_df.to_csv(f"/Users/conny/Desktop/Trial/WrittenQA.csv", index=False)
+# final_df.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/WrittenQA/WrittenQA.csv", index=False)
+# # final_df.to_csv(f"/Users/conny/Desktop/Trial/WrittenQA.csv", index=False)

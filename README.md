@@ -270,13 +270,13 @@ print(n)
 
 ## Roadmap
 12/9/2023
-- [] bill stage identifier automation
-- [] bill type identifier automation
+- [x] bill stage identifier automation
+- [x] bill type identifier automation
 - [] constituency automation
 - [] committee automation
 - [x] member folders have 3 missing bash files
 - [x] modify billslateststage
-- [] combine billslatestage using date and billslateststage using id together
+- [x] combine billslatestage using date and billslateststage using id together
 
 
 
@@ -286,8 +286,12 @@ print(n)
 
 Contributors names and contact info
 
+Name: Dr. Juan Estrada
+Contact:
+
 Name: Junyi (Conny) Zhou  
 Contact: junyi.zhou@emory.edu
+
 
 
 

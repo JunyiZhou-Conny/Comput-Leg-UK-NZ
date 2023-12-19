@@ -3,12 +3,35 @@ Author: Conny Zhou
 Email: junyi.zhou@emory.edu
 Last Updated: 12/18/2023
 '''
-import requests
-import time
-import json
-import math
-import sys
+
+import boto3
 import pandas as pd
+import json
+import requests
+import csv
+import numpy as np
+import time
+
+def download_file_from_s3(bucket, object_name, local_file_name):
+    """
+    Download a file from S3 to the local file system.
+
+    :param bucket: Name of the S3 bucket
+    :param object_name: S3 object name
+    :param local_file_name: Local file name to save the downloaded file
+    """
+    s3_client = boto3.client('s3')
+    s3_client.download_file(bucket, object_name, local_file_name)
+
+bucket_name = 'myukdata'
+s3_file_name = 'Bills/BillsLatestStage_Combined/BillsLatestStage_Combined.csv'
+local_file = 'Bills.csv'
+
+download_file_from_s3(bucket_name, s3_file_name, local_file)
+
+# Read into pandas DataFrames
+df = pd.read_csv(local_file)
+billId_list = df['billId'].tolist()
 
 
 def get(BillID):
@@ -37,8 +60,7 @@ def get(BillID):
     #Appending each response to this results list
     results = []
 
-
-    url = f"https://bills-api.parliament.uk/api/v1/Bills/{BillID}/Stages"
+    url = f"https://bills-api.parliament.uk/api/v1/Bills/{BillID}/Publications"
     response = requests.get(url)
 
     #Currently, the success code is 200 from "https://bills-api.parliament.uk/index.html"
@@ -71,55 +93,30 @@ def get(BillID):
 
     return results, errors_404, errors_500, errors_400
 
-#There is not limit for UK Parliament API for now, we can skip settiing the API key or the Entry per request
-#ENTRIES_PER_REQUEST = 250
-#API_KEY = get_key(int(sys.argv[2]))
-
-
-# PATH = (str(sys.argv[1]))
-# Bill_ID_START = int(sys.argv[2])
-# Bill_ID_END = int(sys.argv[3])
 
 
 
-# Get the data and normalize the json file
 final = []
-final_nobill = []
+final_nopub = []
 final_404 = []
 final_500 = []
 final_400 = []
-
-#Get the total number of results from a different source
-url = f'https://bills-api.parliament.uk/api/v1/Bills?CurrentHouse=All&OriginatingHouse=All'
-response = requests.get(url)
-total_results = response.json()['totalResults']
-
-iter = 0
-n = 0
-while iter < total_results:
-    bills, errors_404, errors_500, errors_400 = get(BillID = n)
-    
-    if bills is not None:
-        df_all = pd.json_normalize(bills,
-                                   record_path =['items'])
-        #Add the BillID column to the very left of the dataframe
-        df_all.insert(0, 'BillID', n)
-        final.append(df_all)
-        iter += 1
-    #Write a if statement to check if bills is a list with an empty list inside
-    if pd.json_normalize(bills, record_path =['items']) is None:
-        final_nobill.append(n)
+for i in range(len(billId_list)):
+    BillID = billId_list[i]
+    bills, errors_404, errors_500, errors_400 = get(BillID)
+    print(BillID)
     if errors_404 != 0:
         final_404.append(errors_404)
-    if errors_500 != 0:
+    elif errors_500 != 0:
         final_500.append(errors_500)
-    if errors_400 != 0:
-        final_400.append(errors_400)
-    n += 1
-print(n)
+    elif errors_400 != 0:
+            final_400.append(errors_400)
+    elif pd.json_normalize(bills) is None:
+            final_nopub.append(BillID)
+    elif bills is not None:
+        norm = pd.json_normalize(bills, record_path=['publications'], meta=['billId'])
+        final.append(norm)
 
-
-#Concatenate all the lists into one dataframe
 final_df = pd.concat(final, ignore_index=True)
 
 
@@ -127,19 +124,18 @@ final_df = pd.concat(final, ignore_index=True)
 final_df_404 = pd.DataFrame(final_404)
 final_df_500 = pd.DataFrame(final_500)
 final_df_400 = pd.DataFrame(final_400)
-final_df_nobill = pd.DataFrame(final_nobill)
+final_df_nopub = pd.DataFrame(final_nopub)
+
 
 #Make the column name of the error lists as "ID"
 if len(final_df_404) != 0:
-    final_df_404.columns = ["SKIP"]
+    final_df_404.columns = ["ID"]
 if len(final_df_500) != 0:
-    final_df_500.columns = ["SKIP"]
+    final_df_500.columns = ["ID"]
 if len(final_df_400) != 0:
-    final_df_400.columns = ["SKIP"]
-if len(final_df_nobill) != 0:
-    final_df_nobill.columns = ["SKIP"]
-
-
+    final_df_400.columns = ["ID"]
+if len(final_df_nopub) != 0:
+    final_df_nopub.columns = ["ID"]
 
 import boto3
 import io
@@ -170,15 +166,14 @@ def upload_df_to_s3(df, bucket, object_name):
     return True
 
 
-
 bucket_name = 'myukdata'
-folder_path = 'BillAllStages'
-file_names = ['BillsAllStages.csv','BillsAllStages_NoBill.csv','BillsAllStages404.csv', 'BillsAllStages500.csv', 'BillsAllStages400.csv']  # Replace with your desired S3 object names
+folder_path = 'Publication'
+file_names = ['Publication.csv','BillsAllStages_NoBill.csv','BillsAllStages404.csv', 'BillsAllStages500.csv', 'BillsAllStages400.csv']  # Replace with your desired S3 object names
 # Create full object names with folder path
 object_names = [f"{folder_path}/{file_name}" for file_name in file_names]
 
 # Example DataFrames
-dfs = [final_df, final_df_nobill, final_df_404, final_df_500, final_df_400]  # Replace with your actual DataFrames
+dfs = [final_df, final_df_nopub, final_df_404, final_df_500, final_df_400]  # Replace with your actual DataFrames
 
 
 # Loop over DataFrames and upload each
@@ -188,32 +183,3 @@ for df, object_name in zip(dfs, object_names):
         print(f"Uploaded {object_name} to {bucket_name}")
     else:
         print(f"Failed to upload {object_name}")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#Store the 2 error lists in a csv file
-# final_df_404.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages/BillsAllStages404.csv", index=False)
-# final_df_500.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages/BillsAllStages500.csv", index=False)
-# final_df_400.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages/BillsAllStages400.csv", index=False)
-# final_df_nobill.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages/BillsAllStagesNoBill.csv", index=False)
-# # final_df_404.to_csv(f"/Users/conny/Desktop/Trial/BillsAllStages404.csv", index=False)
-# # final_df_500.to_csv(f"/Users/conny/Desktop/Trial/BillsAllStages500.csv", index=False)
-# # final_df_400.to_csv(f"/Users/conny/Desktop/Trial/BillsAllStages400.csv", index=False)
-# # final_df_nobill.to_csv(f"/Users/conny/Desktop/Trial/BillsAllStagesNoBill.csv", index=False)
-# final_df.to_csv(f"/home/jjestra/research/computational_legislature/uk/Data/Bills/BillsAllStages/BillsAllStages.csv", index=False)
-# # final_df.to_csv(f"/Users/conny/Desktop/Trial/BillsAllStages.csv", index=False)
-
