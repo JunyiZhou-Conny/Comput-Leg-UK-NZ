@@ -5,7 +5,11 @@
   <ol>
     <li><a href="#overview-of-the-project">Overview of the Project</a></li>
     <li><a href="#ec2-setup">EC2 Setup</a></li>
-    <li><a href="#s3-bucket-upload">S3 Bucket Upload</a></li>
+    <li><a href="#s3-bucket-upload-and-download">S3 Bucket Upload and Download</a></li>
+    <ul>
+        <li><a href="#upload">Upload</a></li>
+        <li><a href="#download">Download</a></li>
+    <ul>   
     <li><a href="#bills">Bills</a></li>
     <ul>
         <li><a href="#billsallstages">BillsAllStages</a></li>
@@ -125,7 +129,25 @@ jupyter server list
 ```
 And then use the token to access JupyterLab from your browser.
 
-### S3 Bucket Upload
+## S3 Bucket Upload and Download
+### Upload
+There are 2 scenarios for uploading files to S3:
+1. Upload a file to S3 from a local file system
+2. Upload a file to S3 using IAM credentials such as an EC2 instance
+The key difference is that you need to set up credentials locally for the first scenario. The credentials need to be stored in a file called `~/.aws/credentials` in the following format:
+You can use nano to create the file:
+```bash
+nano ~/.aws/credentials
+```
+And then paste the following into the file:
+```bash
+[default]
+aws_access_key_id = YOUR_ACCESS_KEY
+aws_secret_access_key = YOUR_SECRET_KEY
+```
+
+
+where "default" is the name of the profile. It is important to pass the `profile_name` argument to the `Session` object when using the `boto3` library. Otherwise, the default profile will be used. The second case is simpler because IAM credentials are automatically retrieved from the instance metadata. No need for the use of `Session` object.
 ```python
 import boto3
 import io
@@ -146,14 +168,47 @@ def upload_df_to_s3(df, bucket, object_name):
     # Move to the start of the buffer
     csv_buffer.seek(0)
 
-    # Upload the buffer content to S3
-    s3_client = boto3.client('s3')
+    # When using IAM roles, boto3 retrieves credentials from the instance metadata
+    # s3_client = boto3.client('s3')
+
+    #When setting up credentials locally, use the following code
+    session = boto3.Session()
+    s3_client = session.client('s3')
+
+    s3_client.download_file(bucket, object_name, local_file_name)
     try:
         s3_client.put_object(Bucket=bucket, Key=object_name, Body=csv_buffer.getvalue())
     except ClientError as e:
         logging.error(e)
         return False
     return True
+```
+
+### Download
+The download function is similar to the upload function. The key difference is that the `download_file` method is used instead of the `put_object` method. The `download_file` method takes 3 arguments: the bucket name, the object name, and the local file name.
+```python
+def download_file_from_s3(bucket, object_name, local_file_name):
+    """
+    Download a file from S3 to the local file system.
+
+    :param bucket: Name of the S3 bucket
+    :param object_name: S3 object name
+    :param local_file_name: Local file name to save the downloaded file
+    """
+    # # When using IAM roles, boto3 retrieves credentials from the instance metadata
+    # s3_client = boto3.client('s3')
+
+    #When setting up credentials locally, use the following code
+    session = boto3.Session()
+    s3_client = session.client('s3')
+
+    s3_client.download_file(bucket, object_name, local_file_name)
+
+bucket_name = 'myukdata'
+s3_file_name = 'Bills/BillAllStages/BillsAllStages.csv'
+local_file = 'BillAllStages.csv'
+
+download_file_from_s3(bucket_name, s3_file_name, local_file)
 ```
 
 ## Bills

@@ -23,7 +23,13 @@ def download_file_from_s3(bucket, object_name, local_file_name):
     :param object_name: S3 object name
     :param local_file_name: Local file name to save the downloaded file
     """
-    s3_client = boto3.client('s3')
+    # # When using IAM roles, boto3 retrieves credentials from the instance metadata
+    # s3_client = boto3.client('s3')
+
+    #When setting up credentials locally, use the following code
+    session = boto3.Session()
+    s3_client = session.client('s3')
+
     s3_client.download_file(bucket, object_name, local_file_name)
 
 bucket_name = 'myukdata'
@@ -176,8 +182,12 @@ def upload_df_to_s3(df, bucket, object_name):
     # Move to the start of the buffer
     csv_buffer.seek(0)
 
-    # Upload the buffer content to S3
-    s3_client = boto3.client('s3')
+    # # When using IAM roles, boto3 retrieves credentials from the instance metadata
+    # s3_client = boto3.client('s3')
+
+    #When setting up credentials locally, use the following code
+    session = boto3.Session()
+    s3_client = session.client('s3')
     try:
         s3_client.put_object(Bucket=bucket, Key=object_name, Body=csv_buffer.getvalue())
     except ClientError as e:

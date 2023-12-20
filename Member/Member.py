@@ -128,8 +128,12 @@ def upload_df_to_s3(df, bucket, object_name):
     # Move to the start of the buffer
     csv_buffer.seek(0)
 
-    # Upload the buffer content to S3
-    s3_client = boto3.client('s3')
+    # # When using IAM roles, boto3 retrieves credentials from the instance metadata
+    # s3_client = boto3.client('s3')
+
+    #When setting up credentials locally, use the following code
+    session = boto3.Session()
+    s3_client = session.client('s3')
     try:
         s3_client.put_object(Bucket=bucket, Key=object_name, Body=csv_buffer.getvalue())
     except ClientError as e:
