@@ -4,6 +4,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#overview-of-the-project">Overview of the Project</a></li>
+    <li><a href="#scraping">Scraping</a></li>
     <li><a href="#ec2-setup">EC2 Setup</a></li>
     <li><a href="#s3-bucket-upload-and-download">S3 Bucket Upload and Download</a></li>
     <ul>
@@ -52,6 +53,8 @@ The UK system does not use "resolutions" in the same way as the US. Instead, var
 The role of the monarchy in the UK legislative process is largely ceremonial today, but Royal Assent is still a formal requirement for a Bill to become law.
 The UK Parliament's legislative process is characterized by its parliamentary sovereignty, meaning it can make or unmake any law, and no other body can overturn its legislation.
 
+## Scraping
+ 
 ## EC2 Setup
 This guide outlines the steps to set up JupyterLab on an AWS EC2 instance, configure the security group, and access JupyterLab remotely.
 
