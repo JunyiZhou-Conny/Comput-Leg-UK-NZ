@@ -1,8 +1,0 @@
-CFBundleGetInfoString = "Google Chrome for Testing 120.0.6099.109, Copyright 2023 Google LLC. Alle rechten voorbehouden.";
-NSBluetoothAlwaysUsageDescription = "Zodra Chromium toegang heeft, kunnen websites je om toegang vragen.";
-NSBluetoothPeripheralUsageDescription = "Zodra Chromium toegang heeft, kunnen websites je om toegang vragen.";
-NSCameraUsageDescription = "Zodra Chromium toegang heeft, kunnen websites je om toegang vragen.";
-NSHumanReadableCopyright = "Copyright 2023 Google LLC. Alle rechten voorbehouden.";
-NSLocationUsageDescription = "Zodra Chromium toegang heeft, kunnen websites je om toegang vragen.";
-NSMicrophoneUsageDescription = "Zodra Chromium toegang heeft, kunnen websites je om toegang vragen.";
-NSWebBrowserPublicKeyCredentialUsageDescription = "Zodra Chromium toegang heeft, kunnen websites je om toegang vragen.";

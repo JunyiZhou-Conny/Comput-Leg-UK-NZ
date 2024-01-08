@@ -1,8 +1,0 @@
-CFBundleGetInfoString = "Google Chrome for Testing 120.0.6099.109, ‏کاپی رائٹ2023 Google LLC۔ جملہ حقوق محفوظ ہیں۔";
-NSBluetoothAlwaysUsageDescription = "‏Chromium کو رسائی مل جانے کے بعد، ویب سائٹس آپ سے رسائی طلب کر سکیں گی۔";
-NSBluetoothPeripheralUsageDescription = "‏Chromium کو رسائی مل جانے کے بعد، ویب سائٹس آپ سے رسائی طلب کر سکیں گی۔";
-NSCameraUsageDescription = "‏Chromium کو رسائی مل جانے کے بعد، ویب سائٹس آپ سے رسائی طلب کر سکیں گی۔";
-NSHumanReadableCopyright = "‏کاپی رائٹ2023 Google LLC۔ جملہ حقوق محفوظ ہیں۔";
-NSLocationUsageDescription = "‏Chromium کو رسائی مل جانے کے بعد، ویب سائٹس آپ سے رسائی طلب کر سکیں گی۔";
-NSMicrophoneUsageDescription = "‏Chromium کو رسائی مل جانے کے بعد، ویب سائٹس آپ سے رسائی طلب کر سکیں گی۔";
-NSWebBrowserPublicKeyCredentialUsageDescription = "‏Chromium کو رسائی مل جانے کے بعد، ویب سائٹس آپ سے رسائی طلب کر سکیں گی۔";

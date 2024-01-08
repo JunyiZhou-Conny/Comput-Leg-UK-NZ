@@ -1,8 +1,0 @@
-CFBundleGetInfoString = "Google Chrome for Testing 120.0.6099.109, Autorska prava 2023. Google LLC. Sva prava pridržana.";
-NSBluetoothAlwaysUsageDescription = "Kada Chromium dobije pristup, web-lokacije će vas moći tražiti pristup.";
-NSBluetoothPeripheralUsageDescription = "Kada Chromium dobije pristup, web-lokacije će vas moći tražiti pristup.";
-NSCameraUsageDescription = "Kada Chromium dobije pristup, web-lokacije će vas moći tražiti pristup.";
-NSHumanReadableCopyright = "Autorska prava 2023. Google LLC. Sva prava pridržana.";
-NSLocationUsageDescription = "Kada Chromium dobije pristup, web-lokacije će vas moći tražiti pristup.";
-NSMicrophoneUsageDescription = "Kada Chromium dobije pristup, web-lokacije će vas moći tražiti pristup.";
-NSWebBrowserPublicKeyCredentialUsageDescription = "Kada Chromium dobije pristup, web-lokacije će vas moći tražiti pristup.";
