@@ -480,6 +480,15 @@ print(n)
 ## WrittenQA
 
 ## Oral Questions
+This is the very first attempt during this research project to use some web scraping techniques. The goal is to find the url of each oral question. To clarify the purpose, let us take a concrete example, "https://hansard.parliament.uk/commons/2023-12-19/debates/613A8188-0B79-4319-A56F-757942540B71/OralAnswersToQuestions". This is the url fo the oral answers to questions. As you can see, it consists of the date, the standard hansard header. However, there is a unique identifier for each oral question, which is "613A8188-0B79-4319-A56F-757942540B71". This is the unique identifier that we are looking for.
+
+To consistently find the unique identifier, what we do is that we go to the following webpage:
+"https://hansard.parliament.uk/commons/2023-12-19". This is a very standard hansard webpage that contains information regarding everything happened on that day. We can use the following code to find the unique identifier. 
+
+```python
+
+
+The hansard website is protected by Cloudflare. So we need to use the following code to bypass the protection. To pypass it, we need to use the library called curl_cffi.
 
 
 
