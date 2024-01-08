@@ -484,7 +484,7 @@ This is the very first attempt during this research project to use some web scra
 
 To consistently find the unique identifier, what we do is that we go to the following webpage:
 "https://hansard.parliament.uk/commons/2023-12-19". This is a very standard hansard webpage that contains information regarding everything happened on that day. 
-![hansardinspect.png](https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/Screenshot%202024-01-08%20at%2012.27.45%E2%80%AFPM.png)
+![hansardinspect.png](https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/hansardinspect.png)
 
 ```python
 
