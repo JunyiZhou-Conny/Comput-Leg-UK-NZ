@@ -1,0 +1,8 @@
+CFBundleGetInfoString = "Google Chrome for Testing 120.0.6099.109, কপিরাইট 2023 Google LLC সব স্বত্ব সংরক্ষিত আছে।";
+NSBluetoothAlwaysUsageDescription = "Chromium অ্যাক্সেস পেলেই, ওয়েবসাইটগুলি আপনাকে অ্যাক্সেসের অনুরোধ করতে পারবে।";
+NSBluetoothPeripheralUsageDescription = "Chromium অ্যাক্সেস পেলেই, ওয়েবসাইটগুলি আপনাকে অ্যাক্সেসের অনুরোধ করতে পারবে।";
+NSCameraUsageDescription = "Chromium অ্যাক্সেস পেলেই, ওয়েবসাইটগুলি আপনাকে অ্যাক্সেসের অনুরোধ করতে পারবে।";
+NSHumanReadableCopyright = "কপিরাইট 2023 Google LLC সব স্বত্ব সংরক্ষিত আছে।";
+NSLocationUsageDescription = "Chromium অ্যাক্সেস পেলেই, ওয়েবসাইটগুলি আপনাকে অ্যাক্সেসের অনুরোধ করতে পারবে।";
+NSMicrophoneUsageDescription = "Chromium অ্যাক্সেস পেলেই, ওয়েবসাইটগুলি আপনাকে অ্যাক্সেসের অনুরোধ করতে পারবে।";
+NSWebBrowserPublicKeyCredentialUsageDescription = "Chromium অ্যাক্সেস পেলেই, ওয়েবসাইটগুলি আপনাকে অ্যাক্সেসের অনুরোধ করতে পারবে।";

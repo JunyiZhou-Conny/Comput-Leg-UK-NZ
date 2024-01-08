@@ -1,0 +1,8 @@
+CFBundleGetInfoString = "Google Chrome for Testing 120.0.6099.109, కాపీరైట్ 2023 Google LLC. సర్వ హక్కులు ప్రత్యేకించబడ్డాయి.";
+NSBluetoothAlwaysUsageDescription = "ఓసారి Chromiumకి యాక్సెస్ లభించాక, ఆపై వెబ్‌సైట్‌లకు ఏమైనా యాక్సెస్‌ కావాలంటే అవి మిమ్మల్ని అడగవచ్చు.";
+NSBluetoothPeripheralUsageDescription = "ఓసారి Chromiumకి యాక్సెస్ లభించాక, ఆపై వెబ్‌సైట్‌లకు ఏమైనా యాక్సెస్‌ కావాలంటే అవి మిమ్మల్ని అడగవచ్చు.";
+NSCameraUsageDescription = "ఓసారి Chromiumకి యాక్సెస్ లభించాక, ఆపై వెబ్‌సైట్‌లకు ఏమైనా యాక్సెస్‌ కావాలంటే అవి మిమ్మల్ని అడగవచ్చు.";
+NSHumanReadableCopyright = "కాపీరైట్ 2023 Google LLC. సర్వ హక్కులు ప్రత్యేకించబడ్డాయి.";
+NSLocationUsageDescription = "ఓసారి Chromiumకి యాక్సెస్ లభించాక, ఆపై వెబ్‌సైట్‌లకు ఏమైనా యాక్సెస్‌ కావాలంటే అవి మిమ్మల్ని అడగవచ్చు.";
+NSMicrophoneUsageDescription = "ఓసారి Chromiumకి యాక్సెస్ లభించాక, ఆపై వెబ్‌సైట్‌లకు ఏమైనా యాక్సెస్‌ కావాలంటే అవి మిమ్మల్ని అడగవచ్చు.";
+NSWebBrowserPublicKeyCredentialUsageDescription = "ఓసారి Chromiumకి యాక్సెస్ లభించాక, ఆపై వెబ్‌సైట్‌లకు ఏమైనా యాక్సెస్‌ కావాలంటే అవి మిమ్మల్ని అడగవచ్చు.";

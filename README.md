@@ -5,6 +5,11 @@
   <ol>
     <li><a href="#overview-of-the-project">Overview of the Project</a></li>
     <li><a href="#scraping">Scraping</a></li>
+    <ul>
+        <li><a href="#overview-of-client-server-system">Overview of Client Server System</a></li>
+        <li><a href="#using-insomnia-to-bypass-cloudflare">Using Insomnia to bypass Cloudflare</a></li>
+        <li><a href="#selenium">Selenium</a></li>
+    <ul>
     <li><a href="#ec2-setup">EC2 Setup</a></li>
     <li><a href="#s3-bucket-upload-and-download">S3 Bucket Upload and Download</a></li>
     <ul>
@@ -16,10 +21,23 @@
         <li><a href="#billsallstages">BillsAllStages</a></li>
         <li><a href="#billslateststage_date">BillsLatestStage_Date</a></li>
         <li><a href="#billslateststage_id">BillsLatestStage_ID</a></li>
+    <ul>
     <li><a href="#members">Members</a></li>
-    <li><a href="#data-preprocessing">Data Preprocessing</a></li>
-    <li><a href="#description-of-the-processed-dataset">Description of the Processed Dataset</a></li>
-    <li><a href="#modeling">Modeling</a></li>
+    <ul>
+        <li><a href="#members">Members</a></li>
+        <li><a href="#members-biogrphy">Member Biography</a></li>
+        <li><a href="#members-experience">Member Experience</a></li>
+    <ul>
+    <li><a href="#amendment">Amendment</a></li>
+    <li><a href="#publication">Publication</a></li>
+    <li><a href="#common-division">Common Division</a></li>
+    <ul>
+        <li><a href="#commondivisionayetellers">CommonDivisionAyeTellers</a></li>
+        <li><a href="#commondivisionntellers">CommonDivisionNoTellers</a></li>
+        <li><a href="#division-per-member">Division Per Member</a></li>
+    <ul>
+    <li><a href="#writtenqa">WrittenQA</a></li>
+    <li><a href="#oral-questions">Oral Questions</a></li>
     <ul>
         <li><a href="#knn">KNN</a></li>
         <li><a href="#principal-component-regression">Principal Component Regression</a></li>
@@ -54,7 +72,111 @@ The role of the monarchy in the UK legislative process is largely ceremonial tod
 The UK Parliament's legislative process is characterized by its parliamentary sovereignty, meaning it can make or unmake any law, and no other body can overturn its legislation.
 
 ## Scraping
- 
+### Overview of Client-Server System
+SSL stands for Secure Socket Layer
+TSL stands for Transport Secure Layer
+Browser tries to connect with the server. Client messages server to initiate SSL/TLS communication.
+Server sends back an encrypted public key/certificate
+Clients check the certificate, creates and send an encrypted key back to the server
+Server decrypts the key and delivers encrypted content with key to the client
+Client decrypts the content, thus completing the SSL/TLS handshake
+
+### Using Insomnia to bypass Cloudflare
+Cloudflare response comparison:
+Example 1: Response: 403
+date: Thu, 21 Dec 2023 04:33:22 GMT
+content-type: text/html; charset=UTF-8
+cross-origin-embedder-policy: require-corp
+cross-origin-opener-policy: same-origin
+cross-origin-resource-policy: same-origin
+origin-agent-cluster: ?1
+cf-mitigated: challenge
+cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+expires: Thu, 01 Jan 1970 00:00:01 GMT
+vary: Accept-Encoding
+permissions-policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), usb=()
+referrer-policy: strict-origin
+strict-transport-security: max-age=2592000
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1; mode=block
+server: cloudflare
+cf-ray: 838d6811f9f753d5-ATL
+content-encoding: br
+alt-svc: h3=":443"; ma=86400
+
+Analysis:
+1 thing to notice:
+cf-mitigated: challenge suggests that Cloudflare presented a challenge.
+
+Example 2. Response code: 403
+date: Thu, 21 Dec 2023 04:36:23 GMT
+content-type: text/html; charset=UTF-8
+cross-origin-embedder-policy: require-corp
+cross-origin-opener-policy: same-origin
+cross-origin-resource-policy: same-origin
+origin-agent-cluster: ?1
+cf-mitigated: challenge
+cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+expires: Thu, 01 Jan 1970 00:00:01 GMT
+set-cookie: __cf_bm=FkTyI5EdbhHPnsQDg2LXrmziuS4nLh44tFcLhbfxk10-1703133383-1-Ab4gmFj600wroVlUZ3Rluxk0cV3c0d5KvMvDMrwbRDyyazBtQidbJ4djkRZBwzXOD5KQ6v3RJudmpelPzNDf7Mg=; path=/; expires=Thu, 21-Dec-23 05:06:23 GMT; domain=.parliament.uk; HttpOnly; Secure; SameSite=None
+vary: Accept-Encoding
+permissions-policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), usb=()
+referrer-policy: strict-origin
+strict-transport-security: max-age=2592000
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1; mode=block
+server: cloudflare
+cf-ray: 838d6c80ecc9673e-ATL
+content-encoding: br
+alt-svc: h3=":443"; ma=86400
+
+Analysis:
+There are 2 things to notice:
+1. cf-mitigated: challenge suggests that Cloudflare presented a challenge.
+2. set-cookie: __cf_bm=FkTyI5EdbhHPnsQDg2LXrmziuS4nLh44tFcLhbfxk10-1703133383-1-Ab4gmFj600wroVlUZ3Rluxk0cV3c0d5KvMvDMrwbRDyyazBtQidbJ4djkRZBwzXOD5KQ6v3RJudmpelPzNDf7Mg=; path=/; expires=Thu, 21-Dec-23 05:06:23 GMT; domain=.parliament.uk; HttpOnly; Secure; SameSite=None suggests that Cloudflare set a cookie.
+This suggests that I have passes the Cloudflare challenge. However, I am still getting a 403 error.
+Basically, I am stuck here as I do not know how to incorporate this new cookie to my request. 
+
+### Selenium
+Selenium is a web developer tool that is used to test the operations of a website. However, I am using this to pypass cloudflare. The main idea of Selenium to initiate a web browswer and let selenium click the front end interface. You will see the web browser opening and loading the content much like how a human being would interact with the web browser. This is similar to MAA, which, if you are familiar with Arknights, is a tool to complete daily tasks in a way as if a robot is sitting right in front of the desktop and clicking buttons for you. 
+
+To accomplish this, here are a few basic steps:
+1. You need to download a webdriver. As the name suggests, webdriver drives a browser natively, as a user would, either locally or on a remote machine using the Selenium server. We need to make sure that the web driver installed as appropriate to our browser version.
+
+2. I am using Chrome, and a recent update allows this matching step to be simplified. Previously, in order to test the web, the developer needs to make sure that the webdriver corresponds with the correct version of the web browswer. However, currently, with the webdriver-manager and chromedriver, this can be done automatically. Plus, if you want to test your web on on older version, it could roll back and downgrade your browswer automatically for you. I will talk about it in a later section.
+
+#### ChromeDriver and Webdriver_Manager
+ChromeDriver is a separate executable that Selenium WebDriver uses to control Chrome. It is maintained by the Chromium team with help from WebDriver contributors. 
+Webdriver_Manager is a library that helps to download and install the latest version of the web drivers automatically.
+'''python
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+'''
+
+Here is one example where I went onto a login page and input the correct credentials. In particular, notice that I am compying the xPath of the text box and then send the credential over.
+```python
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+url = 'http://the-internet.herokuapp.com/login'
+driver.get(url)
+
+# Using the new find_element method with By.XPATH
+driver.find_element(By.XPATH, '//*[@id="username"]').send_keys('tomsmith')
+driver.find_element(By.XPATH, '//*[@id="password"]').send_keys('SuperSecretPassword!')
+driver.find_element(By.XPATH, '//*[@id="login"]/button').click()
+```
+
+
+
+
 ## EC2 Setup
 This guide outlines the steps to set up JupyterLab on an AWS EC2 instance, configure the security group, and access JupyterLab remotely.
 
@@ -83,11 +205,11 @@ ssh -i /path/to/your-key.pem ec2-user@your-instance-public-dns
 
 ### Step 3: Install JupyterLab in a Virtual Environment
 ```bash
-sudo yum update -y
-sudo yum install python3-pip python3-dev -y
-python3 -m venv myenv
-source myenv/bin/activate
-pip install jupyterlab
+sudo yum update -y # Update the package manager
+sudo yum install python3-pip python3-dev -y # Install pip and python3
+python3 -m venv myenv # Create a virtual environment
+source myenv/bin/activate # Activate the virtual environment
+pip install jupyterlab # Install JupyterLab
 ```
 
 ### Step 4: Start JupyterLab Manually
@@ -154,6 +276,11 @@ where "default" is the name of the profile. It is important to pass the `profile
 ```python
 import boto3
 import io
+bucket_name = 'myukdata'
+folder_path = 'Member'
+file_names = ['Member.csv','Member_404.csv','Member_500.csv']  # Replace with your desired S3 object names
+# Create full object names with folder path
+object_names = [f"{folder_path}/{file_name}" for file_name in file_names]
 
 def upload_df_to_s3(df, bucket, object_name):
     """
@@ -171,14 +298,12 @@ def upload_df_to_s3(df, bucket, object_name):
     # Move to the start of the buffer
     csv_buffer.seek(0)
 
-    # When using IAM roles, boto3 retrieves credentials from the instance metadata
+    # # When using IAM roles, boto3 retrieves credentials from the instance metadata
     # s3_client = boto3.client('s3')
 
     #When setting up credentials locally, use the following code
     session = boto3.Session()
     s3_client = session.client('s3')
-
-    s3_client.download_file(bucket, object_name, local_file_name)
     try:
         s3_client.put_object(Bucket=bucket, Key=object_name, Body=csv_buffer.getvalue())
     except ClientError as e:
@@ -338,6 +463,24 @@ while iter < total_results:
 print(n)
 ```
 
+## Members
+### Members
+### Members Biography
+### Members Experience
+
+## Amendment
+
+## Publication
+
+## Common Division
+### CommonDivisionAyeTellers
+### CommonDivisionNoTellers
+### Division Per Member
+
+## WrittenQA
+
+## Oral Questions
+
 
 
 
@@ -351,11 +494,10 @@ print(n)
 
 
 ## Roadmap
-12/9/2023
 - [x] bill stage identifier automation
 - [x] bill type identifier automation
-- [] constituency automation
-- [] committee automation
+- [x] constituency automation
+- [x] committee automation
 - [x] member folders have 3 missing bash files
 - [x] modify billslateststage
 - [x] combine billslatestage using date and billslateststage using id together

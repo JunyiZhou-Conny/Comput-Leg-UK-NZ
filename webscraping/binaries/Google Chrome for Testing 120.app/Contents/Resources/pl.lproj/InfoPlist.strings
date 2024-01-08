@@ -1,0 +1,8 @@
+CFBundleGetInfoString = "Google Chrome for Testing 120.0.6099.109, Copyright 2023 Google LLC. Wszelkie prawa zastrzeżone.";
+NSBluetoothAlwaysUsageDescription = "Gdy Chromium będzie mieć dostęp, strony będą mogły prosić Cię o dostęp.";
+NSBluetoothPeripheralUsageDescription = "Gdy Chromium będzie mieć dostęp, strony będą mogły prosić Cię o dostęp.";
+NSCameraUsageDescription = "Gdy Chromium będzie mieć dostęp, strony będą mogły prosić Cię o dostęp.";
+NSHumanReadableCopyright = "Copyright 2023 Google LLC. Wszelkie prawa zastrzeżone.";
+NSLocationUsageDescription = "Gdy Chromium będzie mieć dostęp, strony będą mogły prosić Cię o dostęp.";
+NSMicrophoneUsageDescription = "Gdy Chromium będzie mieć dostęp, strony będą mogły prosić Cię o dostęp.";
+NSWebBrowserPublicKeyCredentialUsageDescription = "Gdy Chromium będzie mieć dostęp, strony będą mogły prosić Cię o dostęp.";

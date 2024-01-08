@@ -1,0 +1,8 @@
+CFBundleGetInfoString = "Google Chrome for Testing 120.0.6099.109, Hak Cipta 2023 Google LLC. Hak cipta terpelihara.";
+NSBluetoothAlwaysUsageDescription = "Sebaik sahaja Chromium mendapat akses, laman web akan dapat meminta akses daripada anda.";
+NSBluetoothPeripheralUsageDescription = "Sebaik sahaja Chromium mendapat akses, laman web akan dapat meminta akses daripada anda.";
+NSCameraUsageDescription = "Sebaik sahaja Chromium mendapat akses, laman web akan dapat meminta akses daripada anda.";
+NSHumanReadableCopyright = "Hak Cipta 2023 Google LLC. Hak cipta terpelihara.";
+NSLocationUsageDescription = "Sebaik sahaja Chromium mendapat akses, laman web akan dapat meminta akses daripada anda.";
+NSMicrophoneUsageDescription = "Sebaik sahaja Chromium mendapat akses, laman web akan dapat meminta akses daripada anda.";
+NSWebBrowserPublicKeyCredentialUsageDescription = "Sebaik sahaja Chromium mendapat akses, laman web akan dapat meminta akses daripada anda.";

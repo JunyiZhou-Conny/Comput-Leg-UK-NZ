@@ -1,0 +1,8 @@
+CFBundleGetInfoString = "Google Chrome for Testing 120.0.6099.109, Hakimiliki 2023 Google LLC. Haki zote zimehifadhiwa.";
+NSBluetoothAlwaysUsageDescription = "Chromium itakapopata idhini, tovuti zitaweza kukuomba idhini ya kufikia.";
+NSBluetoothPeripheralUsageDescription = "Chromium itakapopata idhini, tovuti zitaweza kukuomba idhini ya kufikia.";
+NSCameraUsageDescription = "Chromium itakapopata idhini, tovuti zitaweza kukuomba idhini ya kufikia.";
+NSHumanReadableCopyright = "Hakimiliki 2023 Google LLC. Haki zote zimehifadhiwa.";
+NSLocationUsageDescription = "Chromium itakapopata idhini, tovuti zitaweza kukuomba idhini ya kufikia.";
+NSMicrophoneUsageDescription = "Chromium itakapopata idhini, tovuti zitaweza kukuomba idhini ya kufikia.";
+NSWebBrowserPublicKeyCredentialUsageDescription = "Chromium itakapopata idhini, tovuti zitaweza kukuomba idhini ya kufikia.";

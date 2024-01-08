@@ -1,0 +1,8 @@
+CFBundleGetInfoString = "Google Chrome for Testing 120.0.6099.109, Copyright 2023 Google LLC. Všetky práva vyhradené.";
+NSBluetoothAlwaysUsageDescription = "Keď Chromium získa prístup, weby vás budú môcť žiadať o prístup.";
+NSBluetoothPeripheralUsageDescription = "Keď Chromium získa prístup, weby vás budú môcť žiadať o prístup.";
+NSCameraUsageDescription = "Keď Chromium získa prístup, weby vás budú môcť žiadať o prístup.";
+NSHumanReadableCopyright = "Copyright 2023 Google LLC. Všetky práva vyhradené.";
+NSLocationUsageDescription = "Keď Chromium získa prístup, weby vás budú môcť žiadať o prístup.";
+NSMicrophoneUsageDescription = "Keď Chromium získa prístup, weby vás budú môcť žiadať o prístup.";
+NSWebBrowserPublicKeyCredentialUsageDescription = "Keď Chromium získa prístup, weby vás budú môcť žiadať o prístup.";

@@ -1,0 +1,8 @@
+CFBundleGetInfoString = "Google Chrome for Testing 120.0.6099.109, Copyright 2023 Google LLC. Minden jog fenntartva.";
+NSBluetoothAlwaysUsageDescription = "Miután hozzáférést biztosított a Chromiumnak, a webhelyek is hozzáférést kérhetnek.";
+NSBluetoothPeripheralUsageDescription = "Miután hozzáférést biztosított a Chromiumnak, a webhelyek is hozzáférést kérhetnek.";
+NSCameraUsageDescription = "Miután hozzáférést biztosított a Chromiumnak, a webhelyek is hozzáférést kérhetnek.";
+NSHumanReadableCopyright = "Copyright 2023 Google LLC. Minden jog fenntartva.";
+NSLocationUsageDescription = "Miután hozzáférést biztosított a Chromiumnak, a webhelyek is hozzáférést kérhetnek.";
+NSMicrophoneUsageDescription = "Miután hozzáférést biztosított a Chromiumnak, a webhelyek is hozzáférést kérhetnek.";
+NSWebBrowserPublicKeyCredentialUsageDescription = "Miután hozzáférést biztosított a Chromiumnak, a webhelyek is hozzáférést kérhetnek.";
