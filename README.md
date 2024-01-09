@@ -80,9 +80,9 @@ Client decrypts the content, thus completing the SSL/TLS handshake
 
 ### Using Insomnia to bypass Cloudflare
 Cloudflare response comparison:
-Example 1: Response: 403
-date: Thu, 21 Dec 2023 04:33:22 GMT
-content-type: text/html; charset=UTF-8
+Example 1: Response: 403 
+date: Thu, 21 Dec 2023 04:33:22 GMT 
+content-type: text/html; charset=UTF-8 
 cross-origin-embedder-policy: require-corp
 cross-origin-opener-policy: same-origin
 cross-origin-resource-policy: same-origin
