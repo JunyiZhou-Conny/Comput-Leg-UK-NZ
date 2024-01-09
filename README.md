@@ -79,55 +79,57 @@ Server decrypts the key and delivers encrypted content with key to the client
 Client decrypts the content, thus completing the SSL/TLS handshake
 
 ### Using Insomnia to bypass Cloudflare
-Cloudflare response comparison:
-Example 1: Response: 403  
-date: Thu, 21 Dec 2023 04:33:22 GMT 
-content-type: text/html; charset=UTF-8 
-cross-origin-embedder-policy: require-corp
-cross-origin-opener-policy: same-origin
-cross-origin-resource-policy: same-origin
-origin-agent-cluster: ?1
-cf-mitigated: challenge
-cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0
-expires: Thu, 01 Jan 1970 00:00:01 GMT
-vary: Accept-Encoding
-permissions-policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), usb=()
-referrer-policy: strict-origin
-strict-transport-security: max-age=2592000
-x-content-type-options: nosniff
-x-frame-options: SAMEORIGIN
-x-xss-protection: 1; mode=block
-server: cloudflare
-cf-ray: 838d6811f9f753d5-ATL
-content-encoding: br
-alt-svc: h3=":443"; ma=86400
+Cloudflare response comparison:  
+Example 1: 
+Response: 403  
+date: Thu, 21 Dec 2023 04:33:22 GMT  
+content-type: text/html; charset=UTF-8  
+cross-origin-embedder-policy: require-corp  
+cross-origin-opener-policy: same-origin  
+cross-origin-resource-policy: same-origin  
+origin-agent-cluster: ?1  
+cf-mitigated: challenge  
+cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0  
+expires: Thu, 01 Jan 1970 00:00:01 GMT  
+vary: Accept-Encoding  
+permissions-policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), usb=()  
+referrer-policy: strict-origin  
+strict-transport-security: max-age=2592000  
+x-content-type-options: nosniff  
+x-frame-options: SAMEORIGIN  
+x-xss-protection: 1; mode=block  
+server: cloudflare  
+cf-ray: 838d6811f9f753d5-ATL  
+content-encoding: br  
+alt-svc: h3=":443"; ma=86400  
 
-Analysis:
-1 thing to notice:
+Analysis:  
+1 thing to notice:  
 cf-mitigated: challenge suggests that Cloudflare presented a challenge.
 
-Example 2. Response code: 403
-date: Thu, 21 Dec 2023 04:36:23 GMT
-content-type: text/html; charset=UTF-8
-cross-origin-embedder-policy: require-corp
-cross-origin-opener-policy: same-origin
-cross-origin-resource-policy: same-origin
-origin-agent-cluster: ?1
-cf-mitigated: challenge
-cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0
-expires: Thu, 01 Jan 1970 00:00:01 GMT
-set-cookie: __cf_bm=FkTyI5EdbhHPnsQDg2LXrmziuS4nLh44tFcLhbfxk10-1703133383-1-Ab4gmFj600wroVlUZ3Rluxk0cV3c0d5KvMvDMrwbRDyyazBtQidbJ4djkRZBwzXOD5KQ6v3RJudmpelPzNDf7Mg=; path=/; expires=Thu, 21-Dec-23 05:06:23 GMT; domain=.parliament.uk; HttpOnly; Secure; SameSite=None
+Example 2:  
+Response code: 403  
+date: Thu, 21 Dec 2023 04:36:23 GMT  
+content-type: text/html; charset=UTF-8  
+cross-origin-embedder-policy: require-corp  
+cross-origin-opener-policy: same-origin  
+cross-origin-resource-policy: same-origin  
+origin-agent-cluster: ?1  
+cf-mitigated: challenge  
+cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0  
+expires: Thu, 01 Jan 1970 00:00:01 GMT  
+set-cookie:  __cf_bm=FkTyI5EdbhHPnsQDg2LXrmziuS4nLh44tFcLhbfxk10-1703133383-1-Ab4gmFj600wroVlUZ3Rluxk0cV3c0d5KvMvDMrwbRDyyazBtQidbJ4djkRZBwzXOD5KQ6v3RJudmpelPzNDf7Mg=; path=/; expires=Thu, 21-Dec-23 05:06:23 GMT; domain=.parliament.uk; HttpOnly; Secure; SameSite=None
 vary: Accept-Encoding
-permissions-policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), usb=()
-referrer-policy: strict-origin
-strict-transport-security: max-age=2592000
-x-content-type-options: nosniff
-x-frame-options: SAMEORIGIN
-x-xss-protection: 1; mode=block
-server: cloudflare
-cf-ray: 838d6c80ecc9673e-ATL
-content-encoding: br
-alt-svc: h3=":443"; ma=86400
+permissions-policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), usb=()  
+referrer-policy: strict-origin  
+strict-transport-security: max-age=2592000  
+x-content-type-options: nosniff  
+x-frame-options: SAMEORIGIN  
+x-xss-protection: 1; mode=block  
+server: cloudflare  
+cf-ray: 838d6c80ecc9673e-ATL  
+content-encoding: br  
+alt-svc: h3=":443"; ma=86400  
 
 Analysis:
 There are 2 things to notice:
