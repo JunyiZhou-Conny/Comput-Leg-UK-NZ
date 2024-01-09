@@ -4,18 +4,19 @@
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#overview-of-the-project">Overview of the Project</a></li>
-    <li><a href="#scraping">Scraping</a></li>
+    <li><a href="#scraping">Scraping</a>
     <ul>
         <li><a href="#overview-of-client-server-system">Overview of Client Server System</a></li>
         <li><a href="#using-insomnia-to-bypass-cloudflare">Using Insomnia to bypass Cloudflare</a></li>
         <li><a href="#selenium">Selenium</a></li>
-    <ul>
+    </ul>
+    </li>
     <li><a href="#ec2-setup">EC2 Setup</a></li>
     <li><a href="#s3-bucket-upload-and-download">S3 Bucket Upload and Download</a></li>
     <ul>
         <li><a href="#upload">Upload</a></li>
         <li><a href="#download">Download</a></li>
-    <ul>   
+    </ul>   
     <li><a href="#bills">Bills</a></li>
     <ul>
         <li><a href="#billsallstages">BillsAllStages</a></li>
@@ -484,13 +485,35 @@ This is the very first attempt during this research project to use some web scra
 
 To consistently find the unique identifier, what we do is that we go to the following webpage:
 "https://hansard.parliament.uk/commons/2023-12-19". This is a very standard hansard webpage that contains information regarding everything happened on that day. 
+
 ![hansardinspect.png](https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/hansardinspect.png)
 
 ```python
+from curl_cffi import requests
+from bs4 import BeautifulSoup
+```
+There are the 2 major libraries that we need to use. curl_cffi is a library that can bypass the Cloudflare protection. BeautifulSoup is a library that can help us to parse the html file.
+
+For each date in the generated range:
+1. Retrieve URLs for oral answers.
+2. If no URLs are found, log the date.
+3. Otherwise, download the text for the first URL.
+4. If text is available, it's converted to a DataFrame and uploaded to an S3 bucket.
+5. Two lists, OralQuestions_NoOral and OralQuestions_NoText, are used to keep track of dates where no oral questions or no texts were found, respectively. These lists are converted to DataFrames and uploaded to the S3 bucket.
+
+Key Points to Note:
+1. Error Handling: The script has robust error handling for HTTP requests and AWS operations.
+AWS Credentials: The script is set up to handle AWS credentials both locally and through IAM roles, which is crucial for security and flexibility in different environments.
+2. Impersonation: The script uses the impersonate='chrome110' argument in requests. This might be part of the custom curl_cffi package to mimic a particular browser's behavior.
+```python
+session = requests.Session()
+response = session.get(url, impersonate='chrome110')
+```
+3. Data Upload: The script doesn't just scrape data but also processes and uploads it in a structured format (CSV) to AWS S3.
+4. Date Handling: The script uses Python's datetime library to iterate over a range of dates, which is a common approach in data scraping tasks that are date-based.
 
 
-The hansard website is protected by Cloudflare. So we need to use the following code to bypass the protection. To pypass it, we need to use the library called curl_cffi.
-
+### I do not know what is wrong with the data in 2018/10/22, my preliminary investigation shows me that the cause of parsing problem originates from line 324 in the original text where the data includes a Chinese double quotation mark for some reasons. 
 
 
 

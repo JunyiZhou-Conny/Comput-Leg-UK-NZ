@@ -107,7 +107,7 @@ def upload_df_to_s3(df, bucket, object_name):
 
 #Generate a list of dates
 import datetime
-start_date = datetime.date(2000, 10, 10)
+start_date = datetime.date(2018, 10, 23)
 end_date = datetime.date(2023, 12, 22)
 delta = datetime.timedelta(days=1)
 dates = []
