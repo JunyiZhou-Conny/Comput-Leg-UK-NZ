@@ -22,29 +22,25 @@
         <li><a href="#billsallstages">BillsAllStages</a></li>
         <li><a href="#billslateststage_date">BillsLatestStage_Date</a></li>
         <li><a href="#billslateststage_id">BillsLatestStage_ID</a></li>
-    <ul>
-    <li><a href="#members">Members</a></li>
+    </ul>
+    <li><a href="#members">Members</a>
     <ul>
         <li><a href="#members">Members</a></li>
         <li><a href="#members-biogrphy">Member Biography</a></li>
         <li><a href="#members-experience">Member Experience</a></li>
-    <ul>
+    </ul>
+    </li>
     <li><a href="#amendment">Amendment</a></li>
     <li><a href="#publication">Publication</a></li>
-    <li><a href="#common-division">Common Division</a></li>
+    <li><a href="#common-division">Common Division</a>
     <ul>
         <li><a href="#commondivisionayetellers">CommonDivisionAyeTellers</a></li>
         <li><a href="#commondivisionntellers">CommonDivisionNoTellers</a></li>
         <li><a href="#division-per-member">Division Per Member</a></li>
-    <ul>
+    </ul>
+    </li>
     <li><a href="#writtenqa">WrittenQA</a></li>
     <li><a href="#oral-questions">Oral Questions</a></li>
-    <ul>
-        <li><a href="#knn">KNN</a></li>
-        <li><a href="#principal-component-regression">Principal Component Regression</a></li>
-    <li><a href="#random-forest">Random Forest</a></li>
-    <li><a href="#convolutional-neural-network">Convolutional Neural Network</a></li>
-      </ul>
   </ol>
 </details>
 
