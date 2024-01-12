@@ -4,7 +4,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#overview-of-the-project">Overview of the Project</a></li>
-    <li><a href="#qtmcluster-anaconda-scraper-envir">QTMCluster Anaconda Scraper Envir</a></li>
+    <li><a href="#qtmcluster-anaconda-scraper-environment">QTMCluster Anaconda Scraper Environment</a></li>
     <li><a href="#scraping">Scraping</a>
     <ul>
         <li><a href="#overview-of-client-server-system">Overview of Client Server System</a></li>
@@ -69,7 +69,7 @@ The UK system does not use "resolutions" in the same way as the US. Instead, var
 The role of the monarchy in the UK legislative process is largely ceremonial today, but Royal Assent is still a formal requirement for a Bill to become law.
 The UK Parliament's legislative process is characterized by its parliamentary sovereignty, meaning it can make or unmake any law, and no other body can overturn its legislation.
 
-## QTMCluster Anaconda Scraper Envir
+## QTMCluster Anaconda Scraper Environment
 ![conda scraper.png](https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/conda%20scraper.png)
 Conda: Conda is an open-source package management system and environment management system that runs on Windows, macOS, and Linux. It allows you to install, run, and update packages and their dependencies. Conda also lets you create isolated environments that can have different versions of Python and/or packages installed in them. This is particularly useful when you need to run projects with conflicting package requirements or Python versions.  
 
@@ -81,6 +81,11 @@ conda activate scraper
 Function of source: In Unix-like operating systems, source is a shell command used to read and execute commands from a file (usually a script) in the current shell environment. When you source the conda.sh script, it initializes Conda in the current shell session, allowing you to use conda commands directly.  
 
 Function of conda activate: This command activates a Conda environment. Activating an environment modifies the PATH environment variable for the session, which makes it possible to run programs installed in the environment. It essentially says, "Use the Python version and the packages installed in this specific environment."  
+
+```bash
+conda deactivate
+```
+Use this command to deactivate the current environment.
 
 ## Scraping
 ### Overview of Client-Server System
