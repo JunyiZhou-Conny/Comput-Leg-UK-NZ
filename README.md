@@ -4,6 +4,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#overview-of-the-project">Overview of the Project</a></li>
+    <li><a href="#qtmcluster-anaconda-scraper-envir">QTMCluster Anaconda Scraper Envir</a></li>
     <li><a href="#scraping">Scraping</a>
     <ul>
         <li><a href="#overview-of-client-server-system">Overview of Client Server System</a></li>
@@ -68,6 +69,8 @@ The UK system does not use "resolutions" in the same way as the US. Instead, var
 The role of the monarchy in the UK legislative process is largely ceremonial today, but Royal Assent is still a formal requirement for a Bill to become law.
 The UK Parliament's legislative process is characterized by its parliamentary sovereignty, meaning it can make or unmake any law, and no other body can overturn its legislation.
 
+## QTMCluster Anaconda Scraper Envir
+![conda scraper.png](https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/hansardinspect.png)
 ## Scraping
 ### Overview of Client-Server System
 SSL stands for Secure Socket Layer
