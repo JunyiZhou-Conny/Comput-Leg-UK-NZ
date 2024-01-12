@@ -70,7 +70,7 @@ The role of the monarchy in the UK legislative process is largely ceremonial tod
 The UK Parliament's legislative process is characterized by its parliamentary sovereignty, meaning it can make or unmake any law, and no other body can overturn its legislation.
 
 ## QTMCluster Anaconda Scraper Envir
-![conda scraper.png](https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/hansardinspect.png)
+![conda scraper.png](https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/conda%20scraper.png)
 ## Scraping
 ### Overview of Client-Server System
 SSL stands for Secure Socket Layer
