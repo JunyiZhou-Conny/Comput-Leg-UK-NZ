@@ -71,6 +71,17 @@ The UK Parliament's legislative process is characterized by its parliamentary so
 
 ## QTMCluster Anaconda Scraper Envir
 ![conda scraper.png](https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/conda%20scraper.png)
+Conda: Conda is an open-source package management system and environment management system that runs on Windows, macOS, and Linux. It allows you to install, run, and update packages and their dependencies. Conda also lets you create isolated environments that can have different versions of Python and/or packages installed in them. This is particularly useful when you need to run projects with conflicting package requirements or Python versions.  
+
+You can find the scraper location in a txt file called environment.txt
+```bash
+source /local/scratch/jjestra/anaconda3/etc/profile.d/conda.sh
+conda activate scraper
+```
+Function of source: In Unix-like operating systems, source is a shell command used to read and execute commands from a file (usually a script) in the current shell environment. When you source the conda.sh script, it initializes Conda in the current shell session, allowing you to use conda commands directly.  
+
+Function of conda activate: This command activates a Conda environment. Activating an environment modifies the PATH environment variable for the session, which makes it possible to run programs installed in the environment. It essentially says, "Use the Python version and the packages installed in this specific environment."  
+
 ## Scraping
 ### Overview of Client-Server System
 SSL stands for Secure Socket Layer
