@@ -106,20 +106,18 @@ print(len(object_names))
 for date in dates:
     print(date)
     hansard_url = build_url_for_date(date)
-    if hansard_url == []:
-        Hansard_NoSitting.append(date.strftime('%Y-%m-%d'))
-        print(f"No Hansard links found for {date}")
+    response_pdf = requests.get(hansard_url, impersonate='chrome110')
+    if response_pdf.status_code == 200:
+        print(f"Hansard link found:{hansard_url} for {date}")
+        # Extract binary content from response
+        pdf_binary_content = response_pdf.content
+        # Upload the DataFrame to S3
+        if upload_pdf_to_s3(pdf_binary_content, bucket_name, f"{folder_path}/Hansard_{date.strftime('%Y-%m-%d')}.pdf"):
+            print(f"PDF uploaded successfully for {date}")
     else:
-            print(f"Hansard link found:{hansard_url} for {date}")
-            response_pdf = requests.get(hansard_url, impersonate='chrome110')
-            if response_pdf.status_code == 200:
-                print(f"PDF downloaded for {date}")
-                # Extract binary content from response
-                pdf_binary_content = response_pdf.content
-                # Upload the DataFrame to S3
-                upload_pdf_to_s3(pdf_binary_content, bucket_name, f"{folder_path}/Hansard_{date.strftime('%Y-%m-%d')}.pdf")
-            else:
-                print(f"Text download failed for {date}")
+        print(response_pdf.status_code)
+        Hansard_NoSitting.append(date.strftime('%Y-%m-%d'))
+        print(f"Text download failed for {date}")
 Hansard_NoSitting = pd.DataFrame(Hansard_NoSitting)
 if Hansard_NoSitting.empty == False:
     Hansard_NoSitting.columns = ['Date']
