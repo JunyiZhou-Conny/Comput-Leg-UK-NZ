@@ -560,6 +560,7 @@ response = session.get(url, impersonate='chrome110')
 - [ ] address the issue that there are duplicte bill ids in the billslateststage_combined, talk with Dr. Estrada
 - [ ] rewrite the billslateststage_id and billslateststage_date section in this Readme file to make it better suit the current situation. A new logic of combining the two billslateststage files has been created in CombinedData_Analysis.ipynb
 - [ ] In the ERD, make sure that for the division, we have the title of the bill and its corresponsing bill id
+- [ ] Try a snippet of finding the ganule of division page in hansard
 
 
 
