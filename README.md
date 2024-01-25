@@ -23,6 +23,7 @@
         <li><a href="#billsallstages">BillsAllStages</a></li>
         <li><a href="#billslateststage_date">BillsLatestStage_Date</a></li>
         <li><a href="#billslateststage_id">BillsLatestStage_ID</a></li>
+        <li><a href="#billslateststage_combined">BillsLatestStage_ID</a></li>
     </ul>
     <li><a href="#members">Members</a>
     <ul>
@@ -425,6 +426,8 @@ Also, be aware that we need to change the logic of the elif statement to make su
 Another interesting thing(not sure why I said interesting), start the BillID from 1 instead of 0, otherwise the screen will shiver to tell you that the API is not working.
 
 There are a lot of edge cases. The memberId may not exist for every bill. So we need to use try and except to catch the error. Also there are missing columns, so we set up a desired column list to select the actual columns we have from.
+
+Another crucial aspect of this data is that, for each bill, there are multiple sponsors. The way it is listed in the csv file is simply adding another line of the same bill with a different memberId. The rest of the columns are left blank. This is not ideal.
 ```python
 iter = 0
 n = 1
@@ -480,6 +483,8 @@ while iter < total_results:
     n += 1
 print(n)
 ```
+
+### BillsLatestStage_Combined
 
 ## Members
 ### Members
@@ -551,6 +556,10 @@ response = session.get(url, impersonate='chrome110')
 - [x] member folders have 3 missing bash files
 - [x] modify billslateststage
 - [x] combine billslatestage using date and billslateststage using id together
+
+- [ ] address the issue that there are duplicte bill ids in the billslateststage_combined, talk with Dr. Estrada
+- [ ] rewrite the billslateststage_id and billslateststage_date section in this Readme file to make it better suit the current situation. A new logic of combining the two billslateststage files has been created in CombinedData_Analysis.ipynb
+- [ ] In the ERD, make sure that for the division, we have the title of the bill and its corresponsing bill id
 
 
 
