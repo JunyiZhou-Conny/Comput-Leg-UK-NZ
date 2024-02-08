@@ -76,6 +76,7 @@ Conda: Conda is an open-source package management system and environment managem
 
 You can find the scraper location in a txt file called environment.txt
 ```bash
+cd /local/scratch/jjestra/anaconda3
 source /local/scratch/jjestra/anaconda3/etc/profile.d/conda.sh
 conda activate scraper
 ```
@@ -557,11 +558,18 @@ response = session.get(url, impersonate='chrome110')
 - [x] modify billslateststage
 - [x] combine billslatestage using date and billslateststage using id together
 
-- [ ] address the issue that there are duplicte bill ids in the billslateststage_combined, talk with Dr. Estrada
-- [ ] rewrite the billslateststage_id and billslateststage_date section in this Readme file to make it better suit the current situation. A new logic of combining the two billslateststage files has been created in CombinedData_Analysis.ipynb
+- [x] address the issue that there are duplicte bill ids in the billslateststage_combined, talk with Dr. Estrada
+- [x] rewrite the billslateststage_id and billslateststage_date section in this Readme file to make it better suit the current situation. A new logic of combining the two billslateststage files has been created in CombinedData_Analysis.ipynb
 - [ ] In the ERD, make sure that for the division, we have the title of the bill and its corresponsing bill id
 - [ ] Try a snippet of finding the ganule of division page in hansard
 
+2/1/2024
+- [ ] For Hansard pdf tranformation, I am waiting on the answer which method is better. I have 2 methods in mind. One is to use the pdfminer.six library to extract the text from the pdf file. The other is to use the pdf2image library to convert the pdf file to an image and then use the pytesseract library to extract the text from the image. I am waiting for the answer from Dr. Estrada.
+-[ ] For Bills, I cleaned the column. Let us wait for Dr.Estrada's response on what we are going to do.
+
+2/2/2023
+- [ ] Push the change of Bills to the preprocessed folder in S3
+- [ ] Separate party status from Member dataset
 
 
 
