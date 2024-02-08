@@ -76,9 +76,16 @@ Conda: Conda is an open-source package management system and environment managem
 
 You can find the scraper location in a txt file called environment.txt
 ```bash
-cd /local/scratch/jjestra/anaconda3
-source /local/scratch/jjestra/anaconda3/etc/profile.d/conda.sh
-conda activate scraper
+cd research/computational_legislature/uk # Change to the directory where uk data and codes are stored
+cd /local/scratch/jjestra/anaconda3 # Change to the directory where the anaconda3 is stored
+```
+
+```bash
+source /local/scratch/jjestra/anaconda3/etc/profile.d/conda.sh # Activate conda
+```
+
+```bash
+conda activate scraper # Activate the scraper environment
 ```
 Function of source: In Unix-like operating systems, source is a shell command used to read and execute commands from a file (usually a script) in the current shell environment. When you source the conda.sh script, it initializes Conda in the current shell session, allowing you to use conda commands directly.  
 
