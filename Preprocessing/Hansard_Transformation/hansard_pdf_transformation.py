@@ -1,14 +1,13 @@
 '''
 Author: Conny Zhou
 Email: junyi.zhou@emory.edu
-Last Updated: 02/06/2024
+Last Updated: 02/11/2024
 '''
 #Importing the necessary libraries
 from curl_cffi import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from botocore.exceptions import ClientError
-import PyPDF2
 import fitz
 import boto3
 import io
@@ -40,7 +39,7 @@ def upload_txt_to_s3(txt_binary, bucket, object_name):
 
 #Generate a list of dates
 start_date = datetime.date(2014, 12, 4)
-end_date = datetime.date(2024, 2, 6)
+end_date = datetime.date(2024, 2, 11)
 delta = datetime.timedelta(days=1)
 dates = []
 while start_date <= end_date:
@@ -74,6 +73,10 @@ for date in dates:
     print(date)
     hansard_url = build_url_for_date(date)
     response_pdf = requests.get(hansard_url, impersonate='chrome110')
+    print(response_pdf.status_code)
+    if response_pdf.status_code != 200:
+        print(f"No Hansard link found for {date}")
+        Hansard_NoSitting.append(date.strftime('%Y-%m-%d'))
     if response_pdf.status_code == 200:
         print(f"Hansard link found:{hansard_url} for {date}")
         # Extract binary content from response
