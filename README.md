@@ -1,4 +1,4 @@
-# UK Parliament Data Cleaning I made a change here
+# UK Parliament Data Cleaning
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -368,6 +368,7 @@ download_file_from_s3(bucket_name, s3_file_name, local_file)
 
 ## Bills
 ### BillsAllStages
+https://myukdata.s3.us-east-2.amazonaws.com/Original/Bills/BillAllStages/BillsAllStages.csv
 Everything is about automation. We want to automate the process of data collection. To this end, we need to figure out a way so that we can allocate the last bill ID so that the python script can run a for loop to collect all the bills.
 
 In this case, using the given API, there is no direct access to the last bill ID. To work around this, we can use the following code to get the last bill ID. 
@@ -420,11 +421,13 @@ if pd.json_normalize(bills, record_path =['items']) is None:
 ```
 
 ### BillsLatestStage_Date
+https://myukdata.s3.us-east-2.amazonaws.com/Original/Bills/BillLatestStage_Date/BillsLatestStage_Date.csv
 BillsLatestStage is gathered using the date parameter. It retrieves back all the bills that have been updated since the date specified. The date is set to be 2050-01-01. The issue is that the API contains limited information.
 
 So, I am thinking about repeating the whole process using the method specified in BillsAllStages. The only difference is that we are going to use the date parameter instead of the BillID parameter.
 
 ### BillsLatestStage_ID
+https://myukdata.s3.us-east-2.amazonaws.com/Original/Bills/BillLatestStage_ID/BillsLatestStage_ID.csv
 The worst part of retriving data using the BillID parameter is that the sponsor of the bill is in a nested dictionary. This makes it very hard to retrieve the sponsor information. But I made it.
 
 Notice that sponsors_dict capture the memberId. We do not need the rest of the information because we can refer to Member dataset.
@@ -493,6 +496,10 @@ print(n)
 ```
 
 ### BillsLatestStage_Combined
+https://myukdata.s3.us-east-2.amazonaws.com/Original/Bills/BillsLatestStage_Combined/BillsLatestStage_Combined.csv
+One can find the related code in file CombinedIDate.ipynb. Unfortunately, looking back at my merging process, it is done completely hard-coded. I combined the 2 dataframe based on 'billId', and then manually selected all the necessary information. This is not ideal. However, for now, this is the best method I could think of. 
+
+There is an accompanied file called CombinedDate_Analysis.ipynb where I reviewed some of the merging technique I learnt in QTM 151. It would be a good reference if someone were to look at how I decided to merge in the first place.
 
 ## Members
 ### Members
@@ -502,6 +509,17 @@ print(n)
 ## Amendment
 
 ## Publication
+Publication is one of the most complex datasets. Given the vast variety of files it contains, documents related to a particular bill all fall under this grand genre publication. It is then important here to give a brief overview of the different types of publications that are inlcuded in this dataset.
+
+Go to s3://myukdata/Original/Publication/ to see all the files downloaded in s3 bucket.
+- Publication.csv: the raw dataset downloaded from DeveloperHub API
+- Publication_Modified: the cleaned dataset where useful information is retained. Relying on this file, naming convention is created.
+- Publication_Types: There are roughly 40 different types of publications such as "Bill", "Amendment", etc. The column name is labeled as "PublicationType".
+- Publication_HTML an Publication_PDF: All file are separated into 2 different formats.
+
+Naming Convention Explained:
+170_5_100_pdf.pdf refers to BillId 170, PublicationType 5, id(unique identifier in Publication_Types) 100, and the format is pdf.
+
 
 ## Common Division
 ### CommonDivisionAyeTellers
