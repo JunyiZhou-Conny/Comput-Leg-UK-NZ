@@ -369,6 +369,7 @@ download_file_from_s3(bucket_name, s3_file_name, local_file)
 ## Bills
 ### BillsAllStages
 https://myukdata.s3.us-east-2.amazonaws.com/Original/Bills/BillAllStages/BillsAllStages.csv
+
 Everything is about automation. We want to automate the process of data collection. To this end, we need to figure out a way so that we can allocate the last bill ID so that the python script can run a for loop to collect all the bills.
 
 In this case, using the given API, there is no direct access to the last bill ID. To work around this, we can use the following code to get the last bill ID. 
