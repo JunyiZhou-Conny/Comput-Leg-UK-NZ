@@ -1,5 +1,6 @@
 # UK Parliament Data Cleaning
 <!-- TABLE OF CONTENTS -->
+
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -423,12 +424,14 @@ if pd.json_normalize(bills, record_path =['items']) is None:
 
 ### BillsLatestStage_Date
 https://myukdata.s3.us-east-2.amazonaws.com/Original/Bills/BillLatestStage_Date/BillsLatestStage_Date.csv
+
 BillsLatestStage is gathered using the date parameter. It retrieves back all the bills that have been updated since the date specified. The date is set to be 2050-01-01. The issue is that the API contains limited information.
 
 So, I am thinking about repeating the whole process using the method specified in BillsAllStages. The only difference is that we are going to use the date parameter instead of the BillID parameter.
 
 ### BillsLatestStage_ID
 https://myukdata.s3.us-east-2.amazonaws.com/Original/Bills/BillLatestStage_ID/BillsLatestStage_ID.csv
+
 The worst part of retriving data using the BillID parameter is that the sponsor of the bill is in a nested dictionary. This makes it very hard to retrieve the sponsor information. But I made it.
 
 Notice that sponsors_dict capture the memberId. We do not need the rest of the information because we can refer to Member dataset.
@@ -498,6 +501,7 @@ print(n)
 
 ### BillsLatestStage_Combined
 https://myukdata.s3.us-east-2.amazonaws.com/Original/Bills/BillsLatestStage_Combined/BillsLatestStage_Combined.csv
+
 One can find the related code in file CombinedIDate.ipynb. Unfortunately, looking back at my merging process, it is done completely hard-coded. I combined the 2 dataframe based on 'billId', and then manually selected all the necessary information. This is not ideal. However, for now, this is the best method I could think of. 
 
 There is an accompanied file called CombinedDate_Analysis.ipynb where I reviewed some of the merging technique I learnt in QTM 151. It would be a good reference if someone were to look at how I decided to merge in the first place.
