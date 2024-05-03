@@ -95,7 +95,7 @@ Here are all the data we have in the Preprocessing Folder:
 
    - Hansard txt files on Common Chambers section exclusively.
 
-![ER Diagram](/Users/conny/Desktop/ER Diagram.png)
+### ![ER Diagram.png](https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/ER%20Diagram.png)
 
 **Q3: What are we missing?**  **Plan for the future**
 
@@ -119,7 +119,7 @@ Here are all the data we have in the Preprocessing Folder:
 
    Motions proposed during parliamentary proceedings may trigger divisions among members. Tracking motions and capturing their occurrence in the Hansard enables the identification of significant parliamentary events and debates. Establishing a systematic approach to detect and document motions ensures comprehensive coverage of parliamentary activities.
 
-![Flow Chart and Missing Components](/Users/conny/Desktop/Flow Chart and Missing Components.png)
+### ![Flow Chart.png](https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/Flow%20Chart%20and%20Missing%20Components.png)
 
 
 
