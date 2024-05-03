@@ -2,7 +2,7 @@
 
 ### UK: Basic Proceedings
 
-### ![UK Congress Proceedings]([[/Users/conny/Desktop/UK Congress Proceedings.png](https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/UK%20Congress%20Proceedings.png)]
+### ![UK Proceedings.png]((https://github.com/JunyiZhou-Conny/Comput-Leg-UK/blob/main/Images/UK%20Congress%20Proceedings.png))
 
 **Q1: Where do all of the dataset currently live? How can we access them?**
 
